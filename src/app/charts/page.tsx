@@ -1,8 +1,8 @@
-import { getAllCharts } from "../../infra/charts";
+import { getLastChart } from "../../infra/charts";
 
 export default async function Page() {
     const fetchCharts = async () => {
-        const res = await getAllCharts();
+        const res = await getLastChart();
         const charts = await res.json();
         return charts;
     }
