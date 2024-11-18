@@ -1,6 +1,6 @@
 export default async function Page() {
     const fetchLogs = async () => {
-        const res = await fetch("/api/logs");
+        const res = await fetch(process.env.VERCEL_URL + "api/logs");
         const logs = await res.json();
         return logs;
     }
