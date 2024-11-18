@@ -1,22 +1,12 @@
-"use client"
+export default async function Page() {
+    const fetchLogs = async () => {
+        const res = await fetch(`${process.env.VERCEL_URL}api/logs`);
+        const logs = await res.json();
+        return logs;
+    }
 
-import useSWR from "swr";
+    const logs = await fetchLogs();
 
-const fetcher = (url: string) =>
-    fetch(url)
-        .then((res) => res.json());
-
-export default function Page() {
-    const {
-        data: logs,
-        error,
-        isLoading,
-    } = useSWR('/api/logs/', fetcher);
-
-    if (error) return (<p>Falhou</p>);
-    if (isLoading) return (<p>Carregando...</p>);
-    if (!logs) return null;
-    if (logs) {
         return (
             <div>
                 <h1>Logs</h1>
@@ -32,5 +22,4 @@ export default function Page() {
                 }
             </div>
         )
-    }
 }
