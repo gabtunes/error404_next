@@ -6,7 +6,7 @@ export interface ILog extends Document {
     nota: number,
     tmdb: number,
     updated_at: Date,
-    watched: Boolean
+    watched: boolean
 }
 
 const logSchema:Schema = new mongoose.Schema({
