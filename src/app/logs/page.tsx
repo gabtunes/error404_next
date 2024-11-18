@@ -13,8 +13,8 @@ export default function Page() {
         isLoading,
     } = useSWR('/api/logs/', fetcher);
 
-    if (error) return <p>Falhou</p>;
-    if (isLoading) return <p>Carregando...</p>;
+    if (error) return (<p>Falhou</p>);
+    if (isLoading) return (<p>Carregando...</p>);
     if (!logs) return null;
     if (logs) {
         return (
