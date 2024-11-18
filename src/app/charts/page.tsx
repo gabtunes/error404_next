@@ -1,26 +1,25 @@
-import { getLastChart } from "../../infra/charts";
+import { getAnos, getLastChart } from "../../infra/charts";
 
 export default async function Page() {
-    const fetchCharts = async () => {
-        const res = await getLastChart();
-        const charts = await res.json();
-        return charts;
+    const fetchAnos = async () => {
+        const res = await getAnos();
+        const anos = await res.json();
+        anos.sort(function (a: any, b: any) { return b - a });
+        return anos;
     }
 
-    const charts = await fetchCharts();
+    const anos = await fetchAnos();
 
-        return (
-            <div>
-                <h1>Charts</h1>
-                {
-            charts.map((chart: any) => (
-                        <div key={chart._id}>
-                            <h2>{chart.updated_at}</h2>
-                            <p>{chart.ano}</p>
-                            <h2>{chart.limite}</h2>
-                        </div>
-                    ))
-                }
-            </div>
-        )
+    return (
+        <div>
+            <h1>Charts</h1>
+            {
+                anos.map((ano: number) => (
+                    <div key={ano}>
+                        <p>{ano}</p>
+                    </div>
+                ))
+            }
+        </div>
+    )
 }
