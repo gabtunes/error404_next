@@ -1,4 +1,4 @@
-import { getAllLogs } from "../api/logs/route";
+import { getAllLogs } from "../infra/log";
 
 export default async function Page() {
     const fetchLogs = async () => {
