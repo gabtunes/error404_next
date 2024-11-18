@@ -1,11 +1,8 @@
+import { getAllLogs } from "../api/logs/route";
+
 export default async function Page() {
     const fetchLogs = async () => {
-        const res = await fetch(`https://${process.env.VERCEL_URL}/api/logs`, {
-            headers:{
-                accept: 'application/json',
-                'User-agent': 'learning app',
-              }
-        });
+        const res = await getAllLogs();
         const logs = await res.json();
         return logs;
     }

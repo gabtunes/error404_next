@@ -2,7 +2,7 @@ import Log from "@/app/models/Log";
 import dbConnect from "@/lib/connectDB";
 import { NextResponse } from "next/server";
 
-export async function GET(){
+export async function getAllLogs(){
     await dbConnect();
     
     try {
