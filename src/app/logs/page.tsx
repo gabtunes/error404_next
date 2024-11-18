@@ -1,4 +1,4 @@
-import { getAllLogs } from "../infra/log";
+import { getAllLogs } from "../../infra/log";
 
 export default async function Page() {
     const fetchLogs = async () => {

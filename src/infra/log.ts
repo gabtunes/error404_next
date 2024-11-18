@@ -1,4 +1,4 @@
-import Log from "@/app/models/Log";
+import Log from "@/models/Log";
 import dbConnect from "@/lib/connectDB";
 import { NextResponse } from "next/server";
 
