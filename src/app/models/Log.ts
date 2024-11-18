@@ -2,9 +2,9 @@ import mongoose, {Document, Schema} from "mongoose";
 
 export interface ILog extends Document {
     data: Date,
-    membro: String,
-    nota: Number,
-    tmdb: Number,
+    membro: string,
+    nota: number,
+    tmdb: number,
     updated_at: Date,
     watched: Boolean
 }
