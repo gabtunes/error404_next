@@ -41,7 +41,7 @@ export async function getAnos(){
             updated_at: {
                 $lte: new Date()
             }
-        }).sort({ ano: -1 }).distinct("ano");
+        }).sort({ ano: -1 }).limit(1);
 
         return NextResponse.json(charts);
     } catch (err: any){

@@ -1,8 +1,8 @@
-import { getAllLogs } from "../../infra/log";
+import { getLastChart } from "../../infra/charts";
 
 export default async function Page() {
     const fetchLogs = async () => {
-        const res = await getAllLogs();
+        const res = await getLastChart(2024);
         const logs = await res.json();
         return logs;
     }
@@ -15,10 +15,8 @@ export default async function Page() {
                 {
                     logs.map((log: any) => (
                         <div key={log._id}>
-                            <h2>{log.membro}</h2>
-                            <p>{log.tmdb}</p>
-                            <h2>{log.nota}</h2>
-                            <h2>{log.data}</h2>
+                            <h2>{log.ano}</h2>
+                            <p>{log.updated_at}</p>
                         </div>
                     ))
                 }
