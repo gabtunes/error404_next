@@ -23,10 +23,10 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
             <div className="flex flex-row">
             {
                 anos.map((ano: any) => (
-                <div className={`${(ano_uri==ano)?
+                <div key={ano} className={`${(ano_uri==ano)?
                             "dark:bg-[#ededed] bg-[#171717] dark:text-[#0a0a0a] text-[#ffffff]" : 
                             "dark:bg-[#0a0a0a] bg-[#ffffff] dark:text-[#ededed] text-[#171717]"} p-[15px]`}>
-                        <Link key={ano} href={`${ano}`}>{ano}</Link>
+                        <Link href={`${ano}`}>{ano}</Link>
                     </div>
                 ))
             }

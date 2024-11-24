@@ -5,7 +5,7 @@ export interface ILastCharts {
     titulo: string,
     oscar: boolean,
     media: number,
-    logs: Array<Array<Object>>,
+    logs: Array<Array<object>>,
     percent: number,
     selo: string
 }

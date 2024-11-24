@@ -4,7 +4,7 @@ export interface ICharts extends Document {
     updated_at: Date,
     ano: number,
     limite: boolean,
-    chart: Array<Object>
+    chart: Array<object>
 }
 
 const chartsSchema:Schema = new mongoose.Schema({
