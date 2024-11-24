@@ -15,7 +15,7 @@ export async function getAllCharts(){
     
 }
 
-export async function getLastChart(ano: number){
+export async function getChartComparison(ano: number){
     await dbConnect();
     
     try {
@@ -24,7 +24,7 @@ export async function getLastChart(ano: number){
                 $lte: new Date()
             },
             ano: ano
-        }).sort({ updated_at: -1 }).limit(2);
+        }, { _id: 0, chart: 1, limite: 1 }).sort({ updated_at: -1 }).limit(2);
 
         return NextResponse.json(charts);
     } catch (err: any){
@@ -33,14 +33,15 @@ export async function getLastChart(ano: number){
     
 }
 
-export async function getAnos(){
+export async function getAno(){
     await dbConnect();
     
     try {
         const charts = await Charts.find({
             updated_at: {
                 $lte: new Date()
-            }
+            },
+            limite: 0
         }).sort({ ano: -1 }).limit(1);
 
         return NextResponse.json(charts);

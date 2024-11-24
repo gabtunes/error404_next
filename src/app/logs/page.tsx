@@ -9,17 +9,16 @@ export default async function Page() {
 
     const logs = await fetchLogs();
 
-        return (
-            <div>
-                <h1>Logs</h1>
-                {
-                    logs.map((log: any) => (
-                        <div key={log._id}>
-                            <h2>{log.ano}</h2>
-                            <p>{log.updated_at}</p>
-                        </div>
-                    ))
-                }
-            </div>
-        )
+    return (
+        <div>
+            {
+                logs.map((log: any) => (
+                    <div key={log._id}>
+                        <h2>{log.ano}</h2>
+                        <p>{log.updated_at}</p>
+                    </div>
+                ))
+            }
+        </div>
+    )
 }

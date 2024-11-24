@@ -3,7 +3,8 @@ import mongoose, {Document, Schema} from "mongoose";
 export interface ICharts extends Document {
     updated_at: Date,
     ano: number,
-    limite: boolean
+    limite: boolean,
+    chart: Array<Object>
 }
 
 const chartsSchema:Schema = new mongoose.Schema({
@@ -17,6 +18,10 @@ const chartsSchema:Schema = new mongoose.Schema({
   },
   limite: {
     type: Boolean,
+    required: true,
+  },
+  chart: {
+    type: Array<Object>,
     required: true,
   }
 }, {  collection: 'charts' });
