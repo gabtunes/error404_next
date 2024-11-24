@@ -21,7 +21,7 @@ const chartsSchema:Schema = new mongoose.Schema({
     required: true,
   },
   chart: {
-    type: Array<Object>,
+    type: Array<object>,
     required: true,
   }
 }, {  collection: 'charts' });

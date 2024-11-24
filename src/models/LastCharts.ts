@@ -28,7 +28,7 @@ const lastChartsSchema:Schema = new mongoose.Schema({
     required: true,
   },
   logs: {
-    type: Array<Array<Object>>,
+    type: Array<Array<object>>,
     required: true,
   },
   percent: {
