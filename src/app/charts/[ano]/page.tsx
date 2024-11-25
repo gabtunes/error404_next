@@ -31,12 +31,12 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                 ))
             }
             </div>
-            <div id="table" className="flex flex-col pt-5px items-center">
+            <div id="table" className="mb-10 flex flex-col pt-5px items-center">
                 {(last_chart && charts) ?
                     last_chart.map((filme: any, index: number) => (
                         <div className="flex flex-row items-center" key={filme.tmdb}>
                             <div className='text-[30px] w-[60px] p-[10px] text-right'>{index + 1}</div>
-                            <div className='w-[300px] min-w-[60px] p-[10px] text-center '>{filme.titulo}</div>
+                            <div className='break-normal w-[100px] min-[400px]:w-[150px] md:w-[300px] min-w-[60px] p-[10px] text-center'>{filme.titulo}</div>
                             <div className="p-[10px]">
                             {(filme.oscar === null) ?
                                 <div className="w-[20px]"></div> :
