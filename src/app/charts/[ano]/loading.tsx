@@ -1,5 +1,7 @@
 export default function Loading(){
     return (
-        <div> Tá carregando, amores</div>
+        <div className="flex items-center justify-center mt-[25%] w-full">
+            <span>Tá carregando, amores</span>
+        </div>
     );
 }

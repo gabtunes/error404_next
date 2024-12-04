@@ -47,6 +47,5 @@ export async function getAno(){
         return NextResponse.json(charts);
     } catch (err: any){
         return NextResponse.json({ error: err.message });
-    }
-    
+    }    
 }
