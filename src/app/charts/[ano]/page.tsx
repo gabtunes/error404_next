@@ -1,6 +1,6 @@
 //import { getChartComparison } from "@/infra/charts";
 //import { getCharts } from "@/infra/log";
-import { getBubbling } from "@/infra/bubbling";
+//import { getBubbling } from "@/infra/bubbling";
 import Link from "next/link";
 //import Charts from "@/components/charts";
 import Filme from "@/components/filme";
