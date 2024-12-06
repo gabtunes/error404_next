@@ -25,8 +25,7 @@ const Charts = ({atual, charts, ultimo, penultimo, last_chart}) => {
                 }
             </div>
             <div className={`mb-10 flex-col pt-5px items-center ${(page == "charts") ? "flex" : "hidden"}`}>
-                {(last_chart && charts) ?
-                    last_chart.map((filme, index) => (
+                { last_chart.map((filme, index) => (
                         <div className="group flex flex-row items-stretch justify-stretch w-full md:w-[500px]" key={filme.tmdb}>
                             <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center ">
                                 <div className='funnel-sans text-[25px] md:text-[35px]'>{index + 1}</div>
@@ -74,7 +73,6 @@ const Charts = ({atual, charts, ultimo, penultimo, last_chart}) => {
                             </div>
                         </div>
                     ))
-                    : <div>Loading Charts...</div>
                 }
             </div>
             {atual &&
