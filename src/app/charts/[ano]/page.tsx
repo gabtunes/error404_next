@@ -18,7 +18,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
         //penultimo = charts[1].chart;
     //}
 
-    const res2 = await getCharts(parseInt(ano_uri));
+    const res2 = await getCharts(2024);
     const last_chart = await res2.json();
 
     //const res3 = await getBubbling();
