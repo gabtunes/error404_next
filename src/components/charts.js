@@ -3,14 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const Charts = (props: any) => {
+const Charts = ({charts, ultimo, penultimo, last_chart, atual}) => {
     const [page, setPage] = useState("charts")
-    const charts = props["charts"]
-    const ultimo = props["ultimo"]
-    const penultimo = props["penultimo"]
-    const last_chart = props["last_chart"]
-    const atual = props["atual"]
-    const bubbling = props["bubbling"]
 
     return (
         <div className="flex flex-col items-center">
@@ -32,16 +26,16 @@ const Charts = (props: any) => {
             </div>
             <div className={`mb-10 flex-col pt-5px items-center ${(page == "charts") ? "flex" : "hidden"}`}>
                 {(last_chart && charts) ?
-                    last_chart.map((filme: any, index: number) => (
+                    last_chart.map((filme, index) => (
                         <div className="group flex flex-row items-stretch justify-stretch w-full md:w-[500px]" key={filme.tmdb}>
                             <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center ">
                                 <div className='funnel-sans text-[25px] md:text-[35px]'>{index + 1}</div>
                                 {!ultimo ?
-                                    (penultimo.find((o: any) => o.tmdb == filme.tmdb) ?
+                                    (penultimo.find((o) => o.tmdb == filme.tmdb) ?
                                         (
-                                            (penultimo.find((o: any) => o.tmdb == filme.tmdb)["pos"] - (index + 1) > 0) ?
+                                            (penultimo.find((o) => o.tmdb == filme.tmdb)["pos"] - (index + 1) > 0) ?
                                                 <Image alt="Desceu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/up.png"></Image> :
-                                                (penultimo.find((o: any) => o.tmdb == filme.tmdb)["pos"] - (index + 1) < 0 ?
+                                                (penultimo.find((o) => o.tmdb == filme.tmdb)["pos"] - (index + 1) < 0 ?
                                                     <Image alt="Subiu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/down.png"></Image> :
                                                     <Image alt="Nada mudou" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/same.png"></Image>
                                                 )
@@ -85,7 +79,7 @@ const Charts = (props: any) => {
             </div>
             {atual &&
             <div className={`mb-10 flex-col pt-5px items-center ${(page == "bubbling") ? "flex" : "hidden"}`}>
-                    {bubbling.map((filme: any, index: number) => (
+                    {bubbling.map((filme, index) => (
                         <div className="group flex flex-row items-stretch justify-stretch w-full md:w-[500px]" key={filme.tmdb}>
                             {(index > 0) ?
                                 ((bubbling[index - 1].membros_n == filme.membros_n) ?
