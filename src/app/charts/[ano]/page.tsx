@@ -40,8 +40,9 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
             {(bubbling) &&
                 <Filme filme={bubbling[0].titulo} />
             }
-            {last_chart &&
-                <Charts atual={false} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} />
+            {(charts) &&
+                (last_chart) &&
+                    <Charts atual={false} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} />
             }
         
         </div>
