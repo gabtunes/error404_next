@@ -11,12 +11,12 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
     const res = await getChartComparison(parseInt(ano_uri));
     const charts = await res.json();
 
-    const ultimo = charts[0].limite;
-    let penultimo: any = [];
+    //const ultimo = charts[0].limite;
+    //let penultimo: any = [];
 
-    if (charts.length > 1) {
-        penultimo = charts[1].chart;
-    }
+    //if (charts.length > 1) {
+        //penultimo = charts[1].chart;
+    //}
 
     const res2 = await getCharts(parseInt(ano_uri));
     const last_chart = await res2.json();
@@ -37,7 +37,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            {(last_chart && bubbling) &&
+            {(last_chart && charts && bubbling) &&
                 <Filme filme={bubbling[0].titulo} />
             }
             {/*(last_chart && charts && bubbling) &&
