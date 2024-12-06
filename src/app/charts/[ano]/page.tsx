@@ -1,5 +1,5 @@
 //import { getChartComparison } from "@/infra/charts";
-import { getCharts } from "@/infra/log";
+//import { getCharts } from "@/infra/log";
 import { getLastCharts } from "@/infra/lastchart";
 import { getBubbling } from "@/infra/bubbling";
 import Link from "next/link";
