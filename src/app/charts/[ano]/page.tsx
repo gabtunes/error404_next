@@ -38,7 +38,8 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            <Filme filme="Filme" />
+            {bubbling && <Filme filme={bubbling[0].titulo} />}
+            
         </div>
     )
 
