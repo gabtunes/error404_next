@@ -9,6 +9,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
     const ano_uri = (await params).ano;
     const res = await getChartComparison(parseInt(ano_uri));
     const charts = await res.json();
+
     const ultimo = charts[0].limite;
     let penultimo: any = [];
 
@@ -35,11 +36,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            {   (ano_uri == "2024") ?
-                <Charts charts={charts} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} bubbling={bubbling} /> :
-                <Charts charts={charts} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} bubbling={null} />
-            }
-            
+            <Charts atual={(ano_uri == "2024") ? true : false} charts={charts} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} bubbling={bubbling} />
         </div>
     )
 

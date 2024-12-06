@@ -9,6 +9,7 @@ const Charts = (props: any) => {
     const ultimo = props["ultimo"]
     const penultimo = props["penultimo"]
     const last_chart = props["last_chart"]
+    const atual = props["atual"]
     const bubbling = props["bubbling"]
 
     return (
@@ -20,7 +21,7 @@ const Charts = (props: any) => {
                             "dark:bg-[#ededed] bg-[#171717] dark:text-[#0a0a0a] text-[#ffffff] p-[5px] rounded-md cursor-pointer"
                             : "dark:bg-[#0a0a0a] bg-[#ffffff] dark:text-[#ededed] text-[#171717] p-[5px] rounded-md cursor-pointer"}>Charts</span>
                 </div>
-                {bubbling &&
+                {atual &&
                     <div className="p-[10px]" onClick={() => setPage("bubbling")}>
                         <span className={
                             (page == "bubbling") ?
@@ -82,7 +83,7 @@ const Charts = (props: any) => {
                     : <div>Loading Charts...</div>
                 }
             </div>
-            {bubbling &&
+            {atual &&
             <div className={`mb-10 flex-col pt-5px items-center ${(page == "bubbling") ? "flex" : "hidden"}`}>
                     {bubbling.map((filme: any, index: number) => (
                         <div className="group flex flex-row items-stretch justify-stretch w-full md:w-[500px]" key={filme.tmdb}>
