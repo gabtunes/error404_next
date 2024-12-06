@@ -36,7 +36,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            <Charts atual={(ano_uri == "2024") ? true : false} charts={charts} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} bubbling={bubbling} />
+            <Charts atual={false} charts={charts} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} />
         </div>
     )
 
