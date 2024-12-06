@@ -8,8 +8,8 @@ import Filme from "@/components/filme";
 export default async function Page({ params, }: { params: Promise<{ ano: string }> }) {
     const anos = [2024, 2023, 2022, 2021];
     const ano_uri = (await params).ano;
-    const res = await getChartComparison(parseInt(ano_uri));
-    const charts = await res.json();
+    //const res = await getChartComparison(parseInt(ano_uri));
+    //const charts = await res.json();
 
     //const ultimo = charts[0].limite;
     //let penultimo: any = [];
@@ -37,7 +37,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            {(last_chart && charts && bubbling) &&
+            {(last_chart && bubbling) &&
                 <Filme filme={bubbling[0].titulo} />
             }
             {/*(last_chart && charts && bubbling) &&
