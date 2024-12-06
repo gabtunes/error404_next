@@ -21,7 +21,8 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
     const last_chart = await res2.json();
 
     const res3 = await getBubbling();
-    const bubbling = await res3.json();    
+    const bubbling = await res3.json();
+    console.log(bubbling);    
 
     return (
         <div className="flex flex-col items-center">
