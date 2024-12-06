@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const Charts = ({atual, charts, ultimo, penultimo, last_chart}) => {
+const Charts = ({atual, ultimo, penultimo, last_chart}) => {
     const [page, setPage] = useState("charts")
 
     return (
