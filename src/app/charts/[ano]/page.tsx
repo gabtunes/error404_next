@@ -1,28 +1,28 @@
-import { getChartComparison } from "@/infra/charts";
-import { getCharts } from "@/infra/log";
+//import { getChartComparison } from "@/infra/charts";
+//import { getCharts } from "@/infra/log";
 import { getBubbling } from "@/infra/bubbling";
 import Link from "next/link";
-import Charts from "@/components/charts";
+//import Charts from "@/components/charts";
+import Filme from "@/components/filme";
 
 export default async function Page({ params, }: { params: Promise<{ ano: string }> }) {
     const anos = [2024, 2023, 2022, 2021];
     const ano_uri = (await params).ano;
-    const res = await getChartComparison(parseInt(ano_uri));
-    const charts = await res.json();
+    //const res = await getChartComparison(parseInt(ano_uri));
+    //const charts = await res.json();
 
-    const ultimo = charts[0].limite;
-    let penultimo: any = [];
+    //const ultimo = charts[0].limite;
+    //let penultimo: any = [];
 
-    if (charts.length > 1) {
-        penultimo = charts[1].chart;
-    }
+    //if (charts.length > 1) {
+        //penultimo = charts[1].chart;
+    //}
 
-    const res2 = await getCharts(parseInt(ano_uri));
-    const last_chart = await res2.json();
+    //const res2 = await getCharts(parseInt(ano_uri));
+    //const last_chart = await res2.json();
 
     const res3 = await getBubbling();
     const bubbling = await res3.json();
-    console.log(bubbling);    
 
     return (
         <div className="flex flex-col items-center">
@@ -37,7 +37,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            <Charts atual={false} charts={charts} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} />
+            <Filme filme={bubbling[0].titulo} />
         </div>
     )
 
