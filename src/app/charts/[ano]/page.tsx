@@ -1,5 +1,6 @@
 //import { getChartComparison } from "@/infra/charts";
 import { getCharts } from "@/infra/log";
+import { getLastCharts } from "@/infra/lastchart";
 import { getBubbling } from "@/infra/bubbling";
 import Link from "next/link";
 //import Charts from "@/components/charts";
@@ -18,7 +19,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
         //penultimo = charts[1].chart;
     //}
 
-    const res2 = await getCharts(2024);
+    const res2 = await getLastCharts();
     const last_chart = await res2.json();
 
     const res3 = await getBubbling();
