@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 
 const Charts = (props: any) => {
-
     const [page, setPage] = useState("charts")
     const charts = props["charts"]
     const ultimo = props["ultimo"]
@@ -30,7 +29,7 @@ const Charts = (props: any) => {
                     </div>
                 }
             </div>
-            <div id="table" className={`mb-10 flex-col pt-5px items-center ${(page == "charts") ? "flex" : "hidden"}`}>
+            <div className={`mb-10 flex-col pt-5px items-center ${(page == "charts") ? "flex" : "hidden"}`}>
                 {(last_chart && charts) ?
                     last_chart.map((filme: any, index: number) => (
                         <div className="group flex flex-row items-stretch justify-stretch w-full md:w-[500px]" key={filme.tmdb}>
@@ -83,9 +82,9 @@ const Charts = (props: any) => {
                     : <div>Loading Charts...</div>
                 }
             </div>
+            {bubbling &&
             <div className={`mb-10 flex-col pt-5px items-center ${(page == "bubbling") ? "flex" : "hidden"}`}>
-                {bubbling &&
-                    bubbling.map((filme: any, index: number) => (
+                    {bubbling.map((filme: any, index: number) => (
                         <div className="group flex flex-row items-stretch justify-stretch w-full md:w-[500px]" key={filme.tmdb}>
                             {(index > 0) ?
                                 ((bubbling[index - 1].membros_n == filme.membros_n) ?
@@ -109,6 +108,7 @@ const Charts = (props: any) => {
                         </div>
                     ))}
             </div>
+            }
         </div>
     );
 };
