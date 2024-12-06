@@ -19,13 +19,8 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
     const res2 = await getCharts(parseInt(ano_uri));
     const last_chart = await res2.json();
 
-    let bubbling = null
-
-    if(ano_uri == "2024"){
-        const res3 = await getBubbling();
-        bubbling = await res3.json();
-    }
-    
+    const res3 = await getBubbling();
+    const bubbling = await res3.json();    
 
     return (
         <div className="flex flex-col items-center">
@@ -40,7 +35,11 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            <Charts charts={charts} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} bubbling={bubbling} />
+            {   (ano_uri == "2024") ?
+                <Charts charts={charts} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} bubbling={bubbling} /> :
+                <Charts charts={charts} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} bubbling={null} />
+            }
+            
         </div>
     )
 
