@@ -1,26 +1,27 @@
-//import { getChartComparison } from "@/infra/charts";
-//import { getCharts } from "@/infra/log";
-import { getLastCharts } from "@/infra/lastchart";
-//import { getBubbling } from "@/infra/bubbling";
+import { getChartComparison } from "@/infra/charts";
+import { getCharts } from "@/infra/log";
+//import { getLastCharts } from "@/infra/lastchart";
+import { getBubbling } from "@/infra/bubbling";
 import Link from "next/link";
-//import Charts from "@/components/charts";
-import Filme from "@/components/filme";
+import Charts from "@/components/charts";
+//import Filme from "@/components/filme";
 import { Suspense } from "react";
 
 export default async function Page({ params, }: { params: Promise<{ ano: string }> }) {
     const anos = [2024, 2023, 2022, 2021];
     const ano_uri = (await params).ano;
-    //const res = await getChartComparison(parseInt(ano_uri));
-    //const charts = await res.json();
 
-    //const ultimo = charts[0].limite;
-    //let penultimo: any = [];
+    const charts = await (await getChartComparison(parseInt(ano_uri))).json();
 
-    //if (charts.length > 1) {
-        //penultimo = charts[1].chart;
-    //}
+    const ultimo = charts[0].limite;
+    let penultimo: any = [];
 
-    const last_chart = await (await getLastCharts()).json();
+    if (charts.length > 1) {
+        penultimo = charts[1].chart;
+    }
+
+    const last_chart = await (await getCharts(parseInt(ano_uri))).json();
+    const bubbling = await (await getBubbling()).json();
 
     return (
         <div className="flex flex-col items-center">
@@ -36,13 +37,8 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                 }
             </div>
             <Suspense>
-                <Filme filme={last_chart[0].titulo}></Filme>
+                <Charts atual={(ano_uri == "2024") ? true : false} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} bubbling={bubbling} />
             </Suspense>
-            
-            {/*(charts) &&
-                (last_chart) &&
-                    <Charts atual={false} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} />
-            */}
         
         </div>
     )
