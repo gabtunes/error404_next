@@ -1,10 +1,10 @@
 //import { getChartComparison } from "@/infra/charts";
 //import { getCharts } from "@/infra/log";
 import { getLastCharts } from "@/infra/lastchart";
-import { getBubbling } from "@/infra/bubbling";
+//import { getBubbling } from "@/infra/bubbling";
 import Link from "next/link";
 //import Charts from "@/components/charts";
-import Filme from "./filme";
+import Filme from "@/components/filme";
 
 export default async function Page({ params, }: { params: Promise<{ ano: string }> }) {
     const anos = [2024, 2023, 2022, 2021];
@@ -19,11 +19,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
         //penultimo = charts[1].chart;
     //}
 
-    const res2 = await getLastCharts();
-    const last_chart = await res2.json();
-
-    const res3 = await getBubbling();
-    const bubbling = await res3.json();
+    const last_chart = await (await getLastCharts()).json();
 
     return (
         <div className="flex flex-col items-center">
@@ -38,12 +34,7 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            {(bubbling) &&
-                <Filme filme={bubbling[0].titulo} />
-            }
-            {(last_chart) &&
-                <Filme filme={last_chart[0].titulo} />
-            }
+            <Filme filme={last_chart[0].titulo}></Filme>
             {/*(charts) &&
                 (last_chart) &&
                     <Charts atual={false} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} />

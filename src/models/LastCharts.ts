@@ -41,6 +41,6 @@ const lastChartsSchema:Schema = new mongoose.Schema({
   }
 }, {  collection: 'LastCharts' });
 
-const LastCharts = mongoose.models.LastCharts || mongoose.model<ILastCharts>("LastCharts", lastChartsSchema);
+const LastCharts = mongoose.models?.LastCharts || mongoose.model<ILastCharts>("LastCharts", lastChartsSchema);
 
 export default LastCharts;
