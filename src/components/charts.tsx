@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const Charts = ({atual, ultimo, penultimo, last_chart}) => {
+const Charts = (props: {atual: boolean, ultimo: any, penultimo: any, last_chart:any, bubbling: any}) => {
     const [page, setPage] = useState("charts")
 
     return (
@@ -15,7 +15,7 @@ const Charts = ({atual, ultimo, penultimo, last_chart}) => {
                             "dark:bg-[#ededed] bg-[#171717] dark:text-[#0a0a0a] text-[#ffffff] p-[5px] rounded-md cursor-pointer"
                             : "dark:bg-[#0a0a0a] bg-[#ffffff] dark:text-[#ededed] text-[#171717] p-[5px] rounded-md cursor-pointer"}>Charts</span>
                 </div>
-                {atual &&
+                {props["atual"] &&
                     <div className="p-[10px]" onClick={() => setPage("bubbling")}>
                         <span className={
                             (page == "bubbling") ?
@@ -25,16 +25,16 @@ const Charts = ({atual, ultimo, penultimo, last_chart}) => {
                 }
             </div>
             <div className={`mb-10 flex-col pt-5px items-center ${(page == "charts") ? "flex" : "hidden"}`}>
-                { last_chart.map((filme, index) => (
+                { props["last_chart"].map((filme: any, index: number) => (
                         <div className="group flex flex-row items-stretch justify-stretch w-full md:w-[500px]" key={filme.tmdb}>
                             <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center ">
                                 <div className='funnel-sans text-[25px] md:text-[35px]'>{index + 1}</div>
-                                {!ultimo ?
-                                    (penultimo.find((o) => o.tmdb == filme.tmdb) ?
+                                {!props["ultimo"] ?
+                                    (props["penultimo"].find((o) => o.tmdb == filme.tmdb) ?
                                         (
-                                            (penultimo.find((o) => o.tmdb == filme.tmdb)["pos"] - (index + 1) > 0) ?
+                                            (props["penultimo"].find((o) => o.tmdb == filme.tmdb)["pos"] - (index + 1) > 0) ?
                                                 <Image alt="Desceu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/up.png"></Image> :
-                                                (penultimo.find((o) => o.tmdb == filme.tmdb)["pos"] - (index + 1) < 0 ?
+                                                (props["penultimo"].find((o) => o.tmdb == filme.tmdb)["pos"] - (index + 1) < 0 ?
                                                     <Image alt="Subiu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/down.png"></Image> :
                                                     <Image alt="Nada mudou" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/same.png"></Image>
                                                 )
@@ -75,12 +75,12 @@ const Charts = ({atual, ultimo, penultimo, last_chart}) => {
                     ))
                 }
             </div>
-            {atual &&
+            {props["atual"] &&
             <div className={`mb-10 flex-col pt-5px items-center ${(page == "bubbling") ? "flex" : "hidden"}`}>
-                    {bubbling.map((filme, index) => (
+                    {props["bubbling"].map((filme: any, index: any) => (
                         <div className="group flex flex-row items-stretch justify-stretch w-full md:w-[500px]" key={filme.tmdb}>
                             {(index > 0) ?
-                                ((bubbling[index - 1].membros_n == filme.membros_n) ?
+                                ((props["bubbling"][index - 1].membros_n == filme.membros_n) ?
                                     <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center "></div>
                                     :
                                     <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center text-[#00ac1c]">

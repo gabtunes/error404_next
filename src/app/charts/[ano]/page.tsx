@@ -5,6 +5,7 @@ import { getLastCharts } from "@/infra/lastchart";
 import Link from "next/link";
 //import Charts from "@/components/charts";
 import Filme from "@/components/filme";
+import { Suspense } from "react";
 
 export default async function Page({ params, }: { params: Promise<{ ano: string }> }) {
     const anos = [2024, 2023, 2022, 2021];
@@ -34,7 +35,10 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            <Filme filme={last_chart[0].titulo}></Filme>
+            <Suspense>
+                <Filme filme={last_chart[0].titulo}></Filme>
+            </Suspense>
+            
             {/*(charts) &&
                 (last_chart) &&
                     <Charts atual={false} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} />
