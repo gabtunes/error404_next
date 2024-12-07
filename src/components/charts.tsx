@@ -30,11 +30,11 @@ const Charts = (props: {atual: boolean, ultimo: any, penultimo: any, last_chart:
                             <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center ">
                                 <div className='funnel-sans text-[25px] md:text-[35px]'>{index + 1}</div>
                                 {!props["ultimo"] ?
-                                    (props["penultimo"].find((o) => o.tmdb == filme.tmdb) ?
+                                    (props["penultimo"].find((o: any) => o.tmdb == filme.tmdb) ?
                                         (
-                                            (props["penultimo"].find((o) => o.tmdb == filme.tmdb)["pos"] - (index + 1) > 0) ?
+                                            (props["penultimo"].find((o: any) => o.tmdb == filme.tmdb)["pos"] - (index + 1) > 0) ?
                                                 <Image alt="Desceu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/up.png"></Image> :
-                                                (props["penultimo"].find((o) => o.tmdb == filme.tmdb)["pos"] - (index + 1) < 0 ?
+                                                (props["penultimo"].find((o: any) => o.tmdb == filme.tmdb)["pos"] - (index + 1) < 0 ?
                                                     <Image alt="Subiu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/down.png"></Image> :
                                                     <Image alt="Nada mudou" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/same.png"></Image>
                                                 )
