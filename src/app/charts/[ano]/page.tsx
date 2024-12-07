@@ -36,11 +36,19 @@ export default async function Page({ params, }: { params: Promise<{ ano: string 
                     ))
                 }
             </div>
-            <Suspense>
+            <Suspense fallback={<Loading />}>
                 <Charts atual={(ano_uri == "2024") ? true : false} ultimo={ultimo} penultimo={penultimo} last_chart={last_chart} bubbling={bubbling} />
             </Suspense>
         
         </div>
     )
 
+}
+
+function Loading(){
+    return (
+        <div className="flex items-center justify-center mt-[25%] w-full">
+            <span>Tá carregando, amores</span>
+        </div>
+    );
 }
