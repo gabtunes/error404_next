@@ -4,7 +4,7 @@ import { getLastCharts } from "@/infra/lastchart";
 import { getBubbling } from "@/infra/bubbling";
 import Link from "next/link";
 //import Charts from "@/components/charts";
-import Filme from "@/components/filme";
+import Filme from "./filme";
 
 export default async function Page({ params, }: { params: Promise<{ ano: string }> }) {
     const anos = [2024, 2023, 2022, 2021];
