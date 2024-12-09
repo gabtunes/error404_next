@@ -3,8 +3,6 @@ import { getBubbling } from "@/infra/bubbling";
 import { getCharts } from "@/infra/log";
 import HeaderCharts from "@/components/headercharts";
 
-export const revalidate = 60;
-
 export default async function Page() {
         const anos = [2024, 2023, 2022, 2021]
         const ano_atual = await (await getAno()).json()
