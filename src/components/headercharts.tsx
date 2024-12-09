@@ -1,9 +1,9 @@
 "use client"
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import Charts from "./charts";
 
-const HeaderCharts = (props: { ano: number, bubbling: Array<Object>, data: Array<Object> }) => {
+const HeaderCharts = (props: { ano: number, bubbling: Array<object>, data: Array<object> }) => {
     const anos = [2024, 2023, 2022, 2021];
     const [ano, setAno] = useState(props["ano"])
 

@@ -10,7 +10,7 @@ export default async function Page() {
 
         const bubbling = (await (await getBubbling()).json());  
 
-        const data: Array<Object> = []
+        const data: Array<object> = []
 
         for (let i = 0; i < anos.length; i++) {
             const chartscomp = await (await getChartComparison(anos[i])).json()
