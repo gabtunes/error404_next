@@ -1,3 +1,5 @@
+"use server"
+
 import Charts from "@/models/Charts";
 import dbConnect from "@/lib/connectDB";
 import { NextResponse } from "next/server";

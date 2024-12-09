@@ -1,3 +1,5 @@
+"use server"
+
 import Log from "@/models/Log";
 import dbConnect from "@/lib/connectDB";
 import { NextResponse } from "next/server";
@@ -16,7 +18,7 @@ export async function getCharts(ano: number) {
                         "$match": {
                             "$expr": {
                                 "$and": [
-                                    { "$lte": ["$updated_at", new Date()]},
+                                    { "$lte": ["$updated_at", new Date()] },
                                     { "$eq": ['$ano', ano] }
                                 ]
                             }
@@ -305,6 +307,12 @@ export async function getCharts(ano: number) {
                         }
                     ]
                 }
+            }, {
+                "$addFields": {
+                    "fora": { "$ifNull": ['$fora', false] }
+                }
+            }, {
+                "$match": { "$expr": { "$eq": ['$fora', false] } }
             }, {
                 "$sort": {
                     "media": -1,

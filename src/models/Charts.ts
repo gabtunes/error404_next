@@ -26,6 +26,6 @@ const chartsSchema:Schema = new mongoose.Schema({
   }
 }, {  collection: 'charts' });
 
-const Charts = mongoose.models.Charts || mongoose.model<ICharts>("Charts", chartsSchema);
+const Charts = mongoose.models?.Charts || mongoose.model<ICharts>("Charts", chartsSchema);
 
 export default Charts;

@@ -26,6 +26,6 @@ const bubblingSchema:Schema = new mongoose.Schema({
   }
 }, {  collection: 'Bubbling' });
 
-const Bubbling = mongoose.models.Bubbling || mongoose.model<IBubbling>("Bubbling", bubblingSchema);
+const Bubbling = mongoose.models?.Bubbling || mongoose.model<IBubbling>("Bubbling", bubblingSchema);
 
 export default Bubbling;

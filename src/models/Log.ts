@@ -35,6 +35,6 @@ const logSchema:Schema = new mongoose.Schema({
   }
 },{  collection: 'log' });
 
-const Log = mongoose.models.Log || mongoose.model<ILog>("Log", logSchema);
+const Log = mongoose.models?.Log || mongoose.model<ILog>("Log", logSchema);
 
 export default Log;
