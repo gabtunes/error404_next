@@ -22,6 +22,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=equal" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@900&family=Saira+Stencil+One&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@800&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap" />
       </head>
       <body className="h-full w-full">
         {children}

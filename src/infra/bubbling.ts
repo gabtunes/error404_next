@@ -1,3 +1,5 @@
+"use server"
+
 import Bubbling from "@/models/Bubbling";
 import dbConnect from "@/lib/connectDB";
 import { NextResponse } from "next/server";
