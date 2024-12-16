@@ -12,11 +12,13 @@ export default function Page() {
                     </div>
                 </div>
                 </Link>
+                <Link href={"https://docs.google.com/forms/d/e/1FAIpQLScbA5QYtlagW12oAVvipWUA6WW_2LxUAfZLxZTnF6bMYG-gtg/viewform?usp=header"}>
                 <div className="bg-white flex items-center justify-center p-[5px]">
                     <div className="size-[50px] md:size-[75px] justify-self-center object-contain flex items-center justify-center">
                         <img className="h-[50px] md:h-[75px]" src="/img/premios/critics.png"></img>
                     </div>
                 </div>
+                </Link>
                 <div className="bg-white flex items-center justify-center p-[5px]">
                     <div className="size-[50px] md:size-[75px] justify-self-center object-contain flex items-center justify-center">
                         <img className="h-[50px] md:h-[75px] w-[66px] md:w-[100px] max-w-none" src="/img/premios/bafta.png"></img>
