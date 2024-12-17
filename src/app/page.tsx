@@ -9,14 +9,22 @@ declare global {
   }
 }
 
+interface UserData {
+  id: number;
+  first_name: string;
+  last_name?: string;
+  username?: string;
+  language_code: string;
+  is_premium?: boolean
+}
+
 export default function Home() {
-  const [data, setData] = useState("")
+  const [data, setData] = useState<UserData | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)  
 
   useEffect(() => {
     if(global?.window){
-      console.log(window.Telegram.WebApp.initData)
-      setData(window.Telegram.WebApp.initData)
+      setData(window.Telegram.WebApp.initDataUnsafe.user as UserData)
     }
     setIsLoaded(true)
   }, [])
@@ -26,8 +34,8 @@ export default function Home() {
   else {
     return (
       <div className="flex flex-col items-center">
-        {data != "" &&
-          <div>{data}</div>
+        {data &&
+          <div>{data.id}</div>
         }
         <div className="w-full md:w-[600px] grid grid-cols-2 gap-[5px] p-[5px]">
           <Link href="/charts"><Banner img="CHARTS 2024" /></Link>
