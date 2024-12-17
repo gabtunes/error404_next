@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Charts - ERR0R 404",
@@ -13,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
@@ -23,6 +24,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@900&family=Saira+Stencil+One&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@800&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap" />
+        <Script src="https://telegram.org/js/telegram-web-app.js?56" strategy="beforeInteractive"/>
       </head>
       <body className="h-full w-full">
         {children}

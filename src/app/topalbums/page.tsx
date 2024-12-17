@@ -6,7 +6,9 @@ export default function Page() {
     const [albums, setAlbums] = useState([])
     const [top, setTop] = useState<any[]>([])
 
+    /* eslint-disable */
     const LastFM = require('last-fm')
+    /* eslint-disable */
     const lastfm = new LastFM('33d9baf9f1c9f421722426045e2075a0')
 
     const handleChange = (e: any) => {
@@ -28,7 +30,7 @@ export default function Page() {
         <div>
             <input onChange={handleChange}></input>
             {
-                albums.map((album: any, index: any) => (
+                albums.map((album: any) => (
                     (album.images.length != 0) &&
                     <div key={album.artistName+ "_" + album.name}>
                         <img width="100px" src={album.images[2]}></img>
