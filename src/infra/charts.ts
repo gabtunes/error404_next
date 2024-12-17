@@ -51,3 +51,20 @@ export async function getAno(){
         return NextResponse.json({ error: err.message });
     }    
 }
+
+export async function getAnos(){
+    await dbConnect();
+    
+    try {
+        const charts = await Charts.find({
+            updated_at: {
+                $lte: new Date()
+            },
+            limite: 0
+        }).distinct("ano");
+
+        return NextResponse.json(charts);
+    } catch (err: any){
+        return NextResponse.json({ error: err.message });
+    }    
+}
