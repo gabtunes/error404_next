@@ -1,6 +1,5 @@
 'use client'
 
-import { fallbackModeToStaticPathsResult } from "next/dist/lib/fallback"
 import { useState } from "react"
 
 export default function Page() {
