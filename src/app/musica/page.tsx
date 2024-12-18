@@ -1,23 +1,24 @@
-'use client'
+import Switcher from "./switcher";
 
-import { useState } from "react"
-import TopAlbums from "./album"
-import TopTracks from "./track"
+declare global {
+    interface Window {
+        Telegram: any;
+    }
+}
+interface UserData {
+    id: number;
+    first_name: string;
+    last_name?: string;
+    username?: string;
+    language_code: string;
+    is_premium?: boolean
+}
 
 export default function Page() {
-    const [page, setPage] = useState("albums")
-    return (
-        <div className="flex flex-col items-center">
-            <div className="flex flex-row gap-5">
-                <div className={`p-3 ${page == "albums" ? "bg-red-500" : "bg-white"}`} onClick={() => {setPage("albums")}}>Top Álbuns</div>
-                <div className={`p-3 ${page == "musicas" ? "bg-red-500" : "bg-white"}`} onClick={() => {setPage("musicas")}}>Top Músicas</div>
-            </div>
-            <div className={`${page == "albums" ? "" : "hidden"}`}>
-                <TopAlbums />
-            </div>
-            <div className={`${page == "musicas" ? "" : "hidden"}`}>
-                <TopTracks />
-            </div>
-        </div>
-    )    
+    let data: UserData = {id: 0, first_name: "Nenhum", language_code:"pt-br"}
+    if (global?.window) {
+        data = window.Telegram.WebApp.initDataUnsafe.user as UserData
+        console.log(data)
+    }
+    return <Switcher data={data.id}/>
 }

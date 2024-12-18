@@ -1,7 +1,7 @@
 import { getAno, getChartComparison } from "@/infra/charts";
 import { getBubbling } from "@/infra/bubbling";
 import { getCharts } from "@/infra/log";
-import HeaderCharts from "@/components/headercharts";
+import HeaderCharts from "@/app/charts/headercharts";
 
 export default async function Page() {
         const anos = [2024, 2023, 2022, 2021]
