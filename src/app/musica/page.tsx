@@ -1,6 +1,21 @@
 'use client'
 
-import { useState } from "react"
+import { createContext, useContext, useState } from "react"
+
+interface SearchContextType {
+    top: any[];
+    setTop: React.Dispatch<React.SetStateAction<any[]>>;
+}
+
+const SearchContext = createContext<SearchContextType | undefined>(undefined);
+
+const useSearchContext = () => {
+    const context = useContext(SearchContext);
+    if (context === undefined) {
+        throw new Error('context not found');
+    }
+    return context;
+};
 
 export default function Page() {
     const [albums, setAlbums] = useState([])
@@ -30,26 +45,12 @@ export default function Page() {
         <div className="flex flex-col items-center justify-center gap-5 mt-5" >
             <input placeholder="Álbum, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
             <div className="justify-center gap-2 grid grid-cols-2 md:grid-cols-3 place-content-center">
-                {
+                {albums &&
                     albums.map((album: any) => (
                         (album.images.length != 0) &&
-                        <div id={album.artistName + "_" + album.name} className="group bg-transparent size-[150px] md:size-[200px] perspective-normal" key={album.artistName + "_" + album.name}>
-                            <div className="relative w-full h-full text-center transform-3d duration-[800ms] group-hover:rotate-y-180">
-                                <div className="absolute w-full h-full backface-hidden">
-                                    <img width="200px" src={album.images[2]}></img>
-                                </div>
-                                <div className="absolute w-full h-full backface-hidden rotate-y-180">
-                                    <p>{album.name}</p>
-                                    <p>{album.artistName}</p>
-                                    {(top.length < 10) &&
-                                        <button onClick={() => {
-                                            setTop([...top, album])
-                                        }}>ADD</button>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
+                        <SearchContext.Provider value={{top, setTop}}  key={album.artistName + "_" + album.name} >
+                            <ResultAlbum album={album}/>
+                        </SearchContext.Provider>
                     ))
                 }
             </div>
@@ -112,4 +113,37 @@ export default function Page() {
             </div>
         </div>
     )
+}
+
+function ResultAlbum(props: any){
+    console.log(props["album"])
+    const {top, setTop} = useSearchContext();
+    const [rotate, setRotate] = useState(false)
+
+  return (
+    <div id={props["album"].artistName + "_" + props["album"].name}
+        className="group bg-transparent size-[150px] md:size-[200px] perspective-normal"
+        onClick={() => {setRotate(!rotate)}}>
+    <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180": ""}`}>
+        <div className="absolute w-full h-full backface-hidden">
+            <img width="200px" src={props["album"].images[2]}></img>
+        </div>
+        <div className="bg-gray-100 p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center">
+            <p className="text-sm">{props["album"].name}</p>
+            <p className="text-sm text-gray-700">{props["album"].artistName}</p>
+            {(top.length < 10) &&
+                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
+                    if(!top.includes(props["album"])){
+                        setTop([...top, props["album"]])
+                    }                    
+                }}>
+                    {top.includes(props["album"])?
+                    "check":
+                    "add"
+                    }</button>
+            }
+        </div>
+    </div>
+</div>
+  );
 }
