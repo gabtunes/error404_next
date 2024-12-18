@@ -30,7 +30,7 @@ export async function getMusicafromMembro(membro: number, ano: number){
     
 }
 
-export async function addMusicafromMembro(membro: number, ano: number, albums: Array<Object>, tracks: Array<Object> ){
+export async function addMusicafromMembro(membro: number, ano: number, albums: Array<object>, tracks: Array<object> ){
     await dbConnect();
     
     try {
@@ -49,7 +49,7 @@ export async function addMusicafromMembro(membro: number, ano: number, albums: A
     
 }
 
-export async function updateMusicafromMembro(membro: number, ano: number, update: Object ){
+export async function updateMusicafromMembro(membro: number, ano: number, update: object ){
     await dbConnect();
     
     try {

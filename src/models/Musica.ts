@@ -3,8 +3,8 @@ import mongoose, {Document, Schema} from "mongoose";
 export interface IMusica extends Document {
     membro: number,
     ano: number,
-    albums: Array<Object>,
-    tracks: Array<Object>,
+    albums: Array<object>,
+    tracks: Array<object>,
     updated_at: Date,
 }
 
