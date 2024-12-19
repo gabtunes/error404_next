@@ -29,10 +29,6 @@ export default function Switcher(props: {data: Array<IMusica>}) {
     useEffect(() => {
         if (global?.window) {
             setUser(window.Telegram.WebApp.initDataUnsafe.user as UserData)
-
-            if(!user){
-                redirect("/")
-            }
         }
         setIsLoaded(true)
     }, [])
@@ -46,7 +42,9 @@ export default function Switcher(props: {data: Array<IMusica>}) {
         let data_membro: any[] = []
         if(user){
             data_membro = data.filter((registro: any) => registro["membro"] == user.id)
-        } 
+        } else {
+            redirect("/")
+        }
 
         return (
             <div className="flex flex-col items-center">
