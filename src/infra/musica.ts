@@ -3,6 +3,7 @@
 import Musica from "@/models/Musica";
 import dbConnect from "@/lib/connectDB";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function getAllMusica(){
     await dbConnect();
@@ -34,7 +35,7 @@ export async function addMusicafromMembro(membro: number, ano: number, albums: A
     await dbConnect();
     
     try {
-        const musica = await Musica.create({
+        await Musica.create({
             membro: membro,
             ano: ano,
             albums: albums,
@@ -42,7 +43,7 @@ export async function addMusicafromMembro(membro: number, ano: number, albums: A
             updated_at: new Date()
         });
 
-        return NextResponse.json(musica);
+        revalidatePath("/")
     } catch (err: any){
         return NextResponse.json({ error: err.message });
     }
@@ -53,12 +54,12 @@ export async function updateMusicafromMembro(membro: number, ano: number, update
     await dbConnect();
     
     try {
-        const musica = await Musica.updateOne({
+        await Musica.updateOne({
             membro: membro,
             ano: ano},
             {"$set": update});
 
-        return NextResponse.json(musica);
+        revalidatePath("/")
     } catch (err: any){
         return NextResponse.json({ error: err.message });
     }

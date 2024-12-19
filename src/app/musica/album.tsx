@@ -1,5 +1,7 @@
 'use client'
 
+import { addMusicafromMembro, updateMusicafromMembro } from "@/infra/musica";
+import { IMusica } from "@/models/Musica";
 import { createContext, useContext, useState } from "react"
 
 interface SearchContextType {
@@ -17,10 +19,12 @@ const useSearchContext = () => {
     return context;
 };
 
-export default function TopAlbums() {
+export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
+    let top_db: Array<object> = props["albums_db"][0].albums
     const [albums, setAlbums] = useState([])
-    const [top, setTop] = useState<any[]>([])
-    const [showList, setShowList] = useState(false)  
+    const [top, setTop] = useState<any[]>(top_db)
+    const [showList, setShowList] = useState(false)
+    console.log(typeof JSON.stringify(top))
 
     /* eslint-disable */
     const LastFM = require('last-fm')
@@ -41,6 +45,16 @@ export default function TopAlbums() {
         }
     }
 
+    const handleSave = async() => {
+        if(top_db != top) {
+            if(props["albums_db"].length == 0){
+                await addMusicafromMembro(203, 2024, top, [])
+            } else {
+                await updateMusicafromMembro(203, 2024, {albums: top})
+            }
+        }
+    }
+
     return (
         <div className="flex flex-col items-center justify-center gap-5 mt-5" >
             <input placeholder="Álbum, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
@@ -57,8 +71,14 @@ export default function TopAlbums() {
 
 
             <div className={`p-5 h-full w-[150px] bg-white drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col gap-5 items-center`}>
-                <button className={`z-0 absolute -left-18 bg-white text-center ${showList ? "bottom-20" : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
-                    <span className="material-icons">save</span>
+                <button onClick={handleSave} className={`z-0 absolute -left-18 bg-white text-center ${showList ? "bottom-20" : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
+                    <span className="material-icons">
+                    {
+                        JSON.stringify(top_db) == JSON.stringify(top) ?
+                        "check" :
+                        "save"
+                    }
+                    </span>
                 </button>
                 <button className="z-10 absolute bottom-5 -left-18 bg-white text-center flex items-center justify-center rounded-full drop-shadow-sm size-[50px]" onClick={() => {
                     setShowList(!showList)
@@ -88,12 +108,14 @@ export default function TopAlbums() {
                                         currentTop[index - 1] = currentTop[index]
                                         currentTop[index] = anterior
                                         setTop(currentTop)
+                                        //checkSave()
                                     }}>keyboard_arrow_up</button>
                                 }
                                 <button className="col-start-2 material-icons" onClick={() => {
                                     const currentTop = [...top]
                                     currentTop.splice(index, 1)
                                     setTop(currentTop)
+                                    //checkSave()
                                 }}>delete</button>
 
                                 {(index != top.length - 1) &&
@@ -103,6 +125,7 @@ export default function TopAlbums() {
                                         currentTop[index + 1] = currentTop[index]
                                         currentTop[index] = posterior
                                         setTop(currentTop)
+                                        //checkSave()
                                     }}>keyboard_arrow_down</button>
                                 }
                             </div>
@@ -116,7 +139,6 @@ export default function TopAlbums() {
 }
 
 function ResultAlbum(props: any){
-    console.log(props["album"])
     const {top, setTop} = useSearchContext();
     const [rotate, setRotate] = useState(false)
 
@@ -133,11 +155,11 @@ function ResultAlbum(props: any){
             <p className="text-sm text-gray-700">{props["album"].artistName}</p>
             {(top.length < 10) &&
                 <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
-                    if(!top.includes(props["album"])){
+                    if(!JSON.stringify(top).includes(JSON.stringify(props["album"]))){
                         setTop([...top, props["album"]])
                     }                    
                 }}>
-                    {top.includes(props["album"])?
+                    {JSON.stringify(top).includes(JSON.stringify(props["album"]))?
                     "check":
                     "add"
                     }</button>

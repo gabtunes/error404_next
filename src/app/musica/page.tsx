@@ -1,24 +1,13 @@
+import { getAllMusica } from "@/infra/musica";
 import Switcher from "./switcher";
+import { Suspense } from "react";
 
-declare global {
-    interface Window {
-        Telegram: any;
-    }
-}
-interface UserData {
-    id: number;
-    first_name: string;
-    last_name?: string;
-    username?: string;
-    language_code: string;
-    is_premium?: boolean
-}
+export default async function Page() {
+    const data = await (await getAllMusica()).json();
 
-export default function Page() {
-    let data: UserData = {id: 0, first_name: "Nenhum", language_code:"pt-br"}
-    if (global?.window) {
-        data = window.Telegram.WebApp.initDataUnsafe.user as UserData
-        console.log(data)
-    }
-    return <Switcher data={data.id}/>
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Switcher data={data} />
+        </Suspense>        
+    )
 }
