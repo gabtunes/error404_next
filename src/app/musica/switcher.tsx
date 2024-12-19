@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import TopAlbums from "./album"
 import TopTracks from "./track"
 import { redirect } from "next/navigation";
-import { AnyARecord } from "node:dns";
 import { IMusica } from "@/models/Musica";
 
 declare global {

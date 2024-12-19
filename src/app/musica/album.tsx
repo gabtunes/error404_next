@@ -20,11 +20,10 @@ const useSearchContext = () => {
 };
 
 export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
-    let top_db: Array<object> = props["albums_db"][0].albums
+    const top_db: Array<object> = props["albums_db"][0].albums
     const [albums, setAlbums] = useState([])
     const [top, setTop] = useState<any[]>(top_db)
     const [showList, setShowList] = useState(false)
-    console.log(typeof JSON.stringify(top))
 
     /* eslint-disable */
     const LastFM = require('last-fm')
