@@ -21,6 +21,7 @@ const useSearchContext = () => {
 
 export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
     const top_db: Array<object> = props["albums_db"][0].albums
+    const membro: number = props["albums_db"][0].membro
     const [albums, setAlbums] = useState([])
     const [top, setTop] = useState<any[]>(top_db)
     const [showList, setShowList] = useState(false)
@@ -47,9 +48,9 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
     const handleSave = async() => {
         if(top_db != top) {
             if(props["albums_db"].length == 0){
-                await addMusicafromMembro(203, 2024, top, [])
+                await addMusicafromMembro(membro, 2024, top, [])
             } else {
-                await updateMusicafromMembro(203, 2024, {albums: top})
+                await updateMusicafromMembro(membro, 2024, {albums: top})
             }
         }
     }
