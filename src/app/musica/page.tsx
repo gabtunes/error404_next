@@ -1,13 +1,14 @@
 import { getAllMusica } from "@/infra/musica";
 import Switcher from "./switcher";
-import { Suspense } from "react";
+import { TelegramProvider } from "@/lib/telegramProvider";
+
 
 export default async function Page() {
     const data = await (await getAllMusica()).json();
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <TelegramProvider>
             <Switcher data={data} />
-        </Suspense>        
+        </TelegramProvider>   
     )
 }

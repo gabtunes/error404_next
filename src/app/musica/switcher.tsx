@@ -5,7 +5,7 @@ import TopAlbums from "./album"
 import TopTracks from "./track"
 //import { redirect } from "next/navigation";
 import { IMusica } from "@/models/Musica";
-import { TelegramProvider, useTelegram } from "@/lib/telegramProvider";
+import { useTelegram } from "@/lib/telegramProvider";
 
 
 export default function Switcher(props: { data: Array<IMusica> }) {
@@ -16,7 +16,7 @@ export default function Switcher(props: { data: Array<IMusica> }) {
     console.log(user);
 
     return (
-        <TelegramProvider>
+        <>
             {
                 user ? (
                     <div className="flex flex-col items-center" >
@@ -25,7 +25,7 @@ export default function Switcher(props: { data: Array<IMusica> }) {
                             <div className={`p-3 ${page == "musicas" ? "bg-red-500" : "bg-white"}`} onClick={() => { setPage("musicas") }}>Top Músicas</div>
                         </div>
                         <div className={`${page == "albums" ? "" : "hidden"}`}>
-                            <TopAlbums albums_db={data.filter((registro: any) => registro["membro"] == user.id)} />
+                            <TopAlbums albums_db={data.filter((registro: any) => registro["membro"] == user?.id)} />
                         </div>
                         <div className={`${page == "musicas" ? "" : "hidden"}`}>
                             <TopTracks />
@@ -33,6 +33,6 @@ export default function Switcher(props: { data: Array<IMusica> }) {
                     </div>
                 ) : (<div>UEPA</div>)
             }
-        </TelegramProvider>
+        </>
     )
 }
