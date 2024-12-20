@@ -3,6 +3,7 @@
 import { addMusicafromMembro, updateMusicafromMembro } from "@/infra/musica";
 import { IMusica } from "@/models/Musica";
 import { createContext, useContext, useState } from "react"
+import { useTelegram } from "@/lib/telegramProvider";
 
 interface SearchContextType {
     top: any[];
@@ -19,11 +20,15 @@ const useSearchContext = () => {
     return context;
 };
 
-export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
-    const top_db: Array<object> = props["albums_db"][0].albums
-    const membro: number = props["albums_db"][0].membro
+export default function TopAlbums(props: {albums_db: Array<IMusica>}) { 
+
+    const { user } = useTelegram();
+    console.log(user);
+
+    const top_db: Array<object> = props["albums_db"][0]?.albums
+    const membro: number | undefined = user?.id
     const [albums, setAlbums] = useState([])
-    const [top, setTop] = useState<any[]>(top_db)
+    const [top, setTop] = useState<any[]>(top_db ? top_db : [])
     const [showList, setShowList] = useState(false)
 
     /* eslint-disable */
@@ -46,8 +51,8 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
     }
 
     const handleSave = async() => {
-        if(top_db != top) {
-            if(props["albums_db"].length == 0){
+        if(top_db != top && membro) {
+            if(membro){
                 await addMusicafromMembro(membro, 2024, top, [])
             } else {
                 await updateMusicafromMembro(membro, 2024, {albums: top})
@@ -57,6 +62,7 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
 
     return (
         <div className="flex flex-col items-center justify-center gap-5 mt-5" >
+            <div>{membro}</div>
             <input placeholder="Álbum, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
             <div className="justify-center gap-2 grid grid-cols-2 md:grid-cols-3 place-content-center">
                 {albums &&
