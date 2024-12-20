@@ -18,7 +18,7 @@ export default function Switcher(props: { data: Array<IMusica> }) {
     let oi: any[] = []
 
     if(user){
-        oi = data.filter((registro: any) => registro["membro"] == user?.id)
+        oi = data.filter((registro: any) => registro["membro"] == 245)
         console.log(oi)
     }
 
