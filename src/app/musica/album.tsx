@@ -20,15 +20,14 @@ const useSearchContext = () => {
     return context;
 };
 
-export default function TopAlbums(props: {albums_db: Array<IMusica>}) { 
-
+export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
     const { user } = useTelegram();
     console.log(user);
 
-    const top_db: Array<object> = props["albums_db"][0]?.albums
     const membro: number | undefined = user?.id
+    const top_db: IMusica[] = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
     const [albums, setAlbums] = useState([])
-    const [top, setTop] = useState<any[]>(top_db ? top_db : [])
+    const [top, setTop] = useState<any[]>(top_db)
     const [showList, setShowList] = useState(false)
 
     /* eslint-disable */
@@ -52,7 +51,7 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
 
     const handleSave = async() => {
         if(top_db != top && membro) {
-            if(membro){
+            if(top_db.length == 0){
                 await addMusicafromMembro(membro, 2024, top, [])
             } else {
                 await updateMusicafromMembro(membro, 2024, {albums: top})
