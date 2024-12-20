@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import TopAlbums from "./album"
 import TopTracks from "./track"
-import { redirect } from "next/navigation";
+//import { redirect } from "next/navigation";
 import { IMusica } from "@/models/Musica";
 
 declare global {
