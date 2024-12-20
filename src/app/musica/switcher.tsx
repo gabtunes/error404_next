@@ -20,7 +20,7 @@ export default function Switcher(props: { data: Array<IMusica> }) {
 
     return (
         <>
-            {                   
+            {oi ? (                   
                     <div className="flex flex-col items-center" >
                         <div className="flex flex-row gap-5">
                             <div className={`p-3 ${page == "albums" ? "bg-red-500" : "bg-white"}`} onClick={() => { setPage("albums") }}>Top Álbuns</div>
@@ -32,7 +32,7 @@ export default function Switcher(props: { data: Array<IMusica> }) {
                         <div className={`${page == "musicas" ? "" : "hidden"}`}>
                             <TopTracks />
                         </div>
-                    </div>
+                    </div>) : (<div>UEPA</div>)
             }
         </>
     )
