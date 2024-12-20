@@ -15,17 +15,24 @@ export default function Switcher(props: { data: Array<IMusica> }) {
     const { user } = useTelegram();
     console.log(user);
 
+    let oi: any[] = []
+
+    if(user){
+        oi = data.filter((registro: any) => registro["membro"] == user?.id)
+        console.log(oi)
+    }
+
     return (
         <>
             {
-                user ? (
+                user ? (                    
                     <div className="flex flex-col items-center" >
                         <div className="flex flex-row gap-5">
                             <div className={`p-3 ${page == "albums" ? "bg-red-500" : "bg-white"}`} onClick={() => { setPage("albums") }}>Top Álbuns</div>
                             <div className={`p-3 ${page == "musicas" ? "bg-red-500" : "bg-white"}`} onClick={() => { setPage("musicas") }}>Top Músicas</div>
                         </div>
                         <div className={`${page == "albums" ? "" : "hidden"}`}>
-                            <TopAlbums albums_db={data.filter((registro: any) => registro["membro"] == user?.id)} />
+                            <TopAlbums albums_db={oi} />
                         </div>
                         <div className={`${page == "musicas" ? "" : "hidden"}`}>
                             <TopTracks />
