@@ -15,17 +15,12 @@ export default function Switcher(props: { data: Array<IMusica> }) {
     const { user } = useTelegram();
     console.log(user);
 
-    let oi: any[] = []
-
-    if(user){
-        oi = data.filter((registro: any) => registro["membro"] == 245)
-        console.log(oi)
-    }
+    const oi = data.filter((registro: any) => registro["membro"] == 245)
+    console.log(oi)
 
     return (
         <>
-            {
-                user ? (                    
+            {                   
                     <div className="flex flex-col items-center" >
                         <div className="flex flex-row gap-5">
                             <div className={`p-3 ${page == "albums" ? "bg-red-500" : "bg-white"}`} onClick={() => { setPage("albums") }}>Top Álbuns</div>
@@ -38,7 +33,6 @@ export default function Switcher(props: { data: Array<IMusica> }) {
                             <TopTracks />
                         </div>
                     </div>
-                ) : (<div>UEPA</div>)
             }
         </>
     )
