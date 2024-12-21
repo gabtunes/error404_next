@@ -24,17 +24,17 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
     const { user } = useTelegram();
 
     const membro: number | undefined = user?.id
-    const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
 
     const [top_db, setTopDB] = useState<object[]>([])
+    const [top, setTop] = useState<object[]>([])
 
     useEffect(() => {
+        const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
         if(filtro.length > 0){
             setTopDB(filtro[0].albums)
+            setTop(filtro[0].albums)
         }
-    }, [top_db])
-
-    const [top, setTop] = useState<object[]>(top_db)
+    }, [])    
 
     const [albums, setAlbums] = useState([])    
     const [showList, setShowList] = useState(false)    
