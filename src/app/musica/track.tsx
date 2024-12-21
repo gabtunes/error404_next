@@ -28,7 +28,7 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
 
     const [top_db, setTopDB] = useState<object[]>([])
     const [top, setTop] = useState<object[]>([])
-    
+
     useEffect(() => {
         if (user) {
             if (filtro.length > 0) {
@@ -36,7 +36,7 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                 setTop(filtro[0].tracks)
             }
         }
-    }, [user])    
+    }, [user])
 
     const [tracks, setTracks] = useState([])
     const [showList, setShowList] = useState(false)
@@ -78,7 +78,7 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                 (user) ?
                     (<div className="flex flex-col items-center justify-center gap-5 mt-5" >
                         <input placeholder="Música, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
-                        <div className="justify-center place-content-center">
+                        <div className="flex flex-col items-center w-[300px]">
                             {tracks &&
                                 tracks.map((track: any) => (
                                     (track.images.length != 0) &&
@@ -114,46 +114,46 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                                 </span>
                             </button>
                             <div className={`p-5 h-full w-full overflow-y-scroll overflow-x-clip no-scrollbar flex flex-col gap-5 items-center`}>
-                            {
-                                top.map((track: any, index: any) => (
-                                    <div className="flex flex-col gap-2" key={index}>
-                                        <div className="relative size-[100px] flex items-end">
-                                            <span style={{ textShadow: '#000 1px 0 10px' }} className="leading-none z-10 absolute funnel-sans text-[65px] text-white">{index + 1}</span>
-                                            <img className="z-0 absolute size-[100px]" src={track.images[2]}></img>
-                                        </div>
-                                        <div className="grid grid-cols-3">
-                                            {(index != 0) &&
-                                                <button className="col-start-1 material-icons" onClick={() => {
+                                {
+                                    top.map((track: any, index: any) => (
+                                        <div className="flex flex-col gap-2" key={index}>
+                                            <div className="relative size-[100px] flex items-end">
+                                                <span style={{ textShadow: '#000 1px 0 10px' }} className="leading-none z-10 absolute funnel-sans text-[65px] text-white">{index + 1}</span>
+                                                <img className="z-0 absolute size-[100px]" src={track.images[2]}></img>
+                                            </div>
+                                            <div className="grid grid-cols-3">
+                                                {(index != 0) &&
+                                                    <button className="col-start-1 material-icons" onClick={() => {
+                                                        const currentTop = [...top]
+                                                        const anterior = currentTop[index - 1]
+                                                        currentTop[index - 1] = currentTop[index]
+                                                        currentTop[index] = anterior
+                                                        setTop(currentTop)
+                                                        //checkSave()
+                                                    }}>keyboard_arrow_up</button>
+                                                }
+                                                <button className="col-start-2 material-icons" onClick={() => {
                                                     const currentTop = [...top]
-                                                    const anterior = currentTop[index - 1]
-                                                    currentTop[index - 1] = currentTop[index]
-                                                    currentTop[index] = anterior
+                                                    currentTop.splice(index, 1)
                                                     setTop(currentTop)
                                                     //checkSave()
-                                                }}>keyboard_arrow_up</button>
-                                            }
-                                            <button className="col-start-2 material-icons" onClick={() => {
-                                                const currentTop = [...top]
-                                                currentTop.splice(index, 1)
-                                                setTop(currentTop)
-                                                //checkSave()
-                                            }}>delete</button>
+                                                }}>delete</button>
 
-                                            {(index != top.length - 1) &&
-                                                <button className="col-start-3 material-icons" onClick={() => {
-                                                    const currentTop = [...top]
-                                                    const posterior = currentTop[index + 1]
-                                                    currentTop[index + 1] = currentTop[index]
-                                                    currentTop[index] = posterior
-                                                    setTop(currentTop)
-                                                    //checkSave()
-                                                }}>keyboard_arrow_down</button>
-                                            }
+                                                {(index != top.length - 1) &&
+                                                    <button className="col-start-3 material-icons" onClick={() => {
+                                                        const currentTop = [...top]
+                                                        const posterior = currentTop[index + 1]
+                                                        currentTop[index + 1] = currentTop[index]
+                                                        currentTop[index] = posterior
+                                                        setTop(currentTop)
+                                                        //checkSave()
+                                                    }}>keyboard_arrow_down</button>
+                                                }
+                                            </div>
+
                                         </div>
-
-                                    </div>
-                                ))
-                            }
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>) :
@@ -165,32 +165,25 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
 
 function ResultTrack(props: any) {
     const { top, setTop } = useSearchContext();
-    const [rotate, setRotate] = useState(false)
 
     return (
         <div id={props["track"].artistName + "_" + props["track"].name}
-            className="group bg-transparent size-[150px] md:size-[200px] perspective-normal"
-            onClick={() => { setRotate(!rotate) }}>
-            <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180" : ""}`}>
-                <div className="absolute w-full h-full backface-hidden">
-                    <img width="200px" src={props["track"].images[2]}></img>
-                </div>
-                <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
-                    <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["track"].name}</p>
-                    <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["track"].artistName}</p>
-                    {(top.length < 10) &&
-                        <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
-                            if (!JSON.stringify(top).includes(JSON.stringify(props["track"]))) {
-                                setTop([...top, props["track"]])
-                            }
-                        }}>
-                            {JSON.stringify(top).includes(JSON.stringify(props["track"])) ?
-                                "check" :
-                                "add"
-                            }</button>
-                    }
-                </div>
+            className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 w-full h-[100px] flex flex-row items-center justify-center`}>
+            <div className="flex flex-col items-start">
+                <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["track"].name}</p>
+                <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["track"].artistName}</p>
             </div>
+            {(top.length < 10) &&
+                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
+                    if (!JSON.stringify(top).includes(JSON.stringify(props["track"]))) {
+                        setTop([...top, props["track"]])
+                    }
+                }}>
+                    {JSON.stringify(top).includes(JSON.stringify(props["track"])) ?
+                        "check" :
+                        "add"
+                    }</button>
+            }
         </div>
     );
 }
