@@ -78,7 +78,7 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                 (user) ?
                     (<div className="flex flex-col items-center justify-center gap-5 mt-5" >
                         <input placeholder="Música, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
-                        <div className="flex flex-col items-center w-[300px]">
+                        <div className="flex flex-col items-center w-[300px] gap-3">
                             {tracks &&
                                 tracks.map((track: any) => (
                                     (track.images.length != 0) &&
@@ -168,13 +168,13 @@ function ResultTrack(props: any) {
 
     return (
         <div id={props["track"].artistName + "_" + props["track"].name}
-            className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 w-full h-[100px] grid grid-cols-5 justify-start`}>
+            className={`bg-[var(--tg-theme-secondary-bg-color)] p-3 w-full h-[100px] grid grid-cols-5 items-center justify-start`}>
             <div className="flex flex-col items-start col-span-4">
                 <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["track"].name}</p>
                 <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["track"].artistName}</p>
             </div>
             {(top.length < 10) &&
-                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3 justify-center" onClick={() => {
+                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3 justify-self-center" onClick={() => {
                     if (!JSON.stringify(top).includes(JSON.stringify(props["track"]))) {
                         setTop([...top, props["track"]])
                     }
