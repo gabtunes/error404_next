@@ -90,7 +90,7 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                         </div>
 
 
-                        <div className={`h-full w-[150px] bg-[var(--tg-theme-secondary-bg-color)] drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col items-center`}>
+                        <div className={`h-full w-[300px] bg-[var(--tg-theme-secondary-bg-color)] drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col items-center`}>
                             <button onClick={handleSave} className={`z-0 absolute -left-18 bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] text-center ${showList ? (JSON.stringify(top_db) == JSON.stringify(top) ? "bottom-5" : "bottom-20") : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
                                 <span className="material-icons">
                                     {
@@ -117,13 +117,14 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                                 {
                                     top.map((track: any, index: any) => (
                                         <div className="flex flex-col gap-2" key={index}>
-                                            <div className="relative size-[100px] flex items-end">
-                                                <span style={{ textShadow: '#000 1px 0 10px' }} className="leading-none z-10 absolute funnel-sans text-[65px] text-white">{index + 1}</span>
-                                                <img className="z-0 absolute size-[100px]" src={track.images[2]}></img>
+                                            <span className="leading-none funnel-sans text-[65px] text-[var(--tg-theme-text-color)]">{index + 1}</span>
+                                            <div className="h-[100px] w-[200px] flex flex-col items-end">
+                                                <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{track.name}</p>
+                                                <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{track.artistName}</p>
                                             </div>
-                                            <div className="grid grid-cols-3">
+                                            <div className="grid grid-rows-3">
                                                 {(index != 0) &&
-                                                    <button className="col-start-1 material-icons" onClick={() => {
+                                                    <button className="row-start-1 material-icons" onClick={() => {
                                                         const currentTop = [...top]
                                                         const anterior = currentTop[index - 1]
                                                         currentTop[index - 1] = currentTop[index]
@@ -132,7 +133,7 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                                                         //checkSave()
                                                     }}>keyboard_arrow_up</button>
                                                 }
-                                                <button className="col-start-2 material-icons" onClick={() => {
+                                                <button className="row-start-2 material-icons" onClick={() => {
                                                     const currentTop = [...top]
                                                     currentTop.splice(index, 1)
                                                     setTop(currentTop)
@@ -140,7 +141,7 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                                                 }}>delete</button>
 
                                                 {(index != top.length - 1) &&
-                                                    <button className="col-start-3 material-icons" onClick={() => {
+                                                    <button className="row-start-3 material-icons" onClick={() => {
                                                         const currentTop = [...top]
                                                         const posterior = currentTop[index + 1]
                                                         currentTop[index + 1] = currentTop[index]
