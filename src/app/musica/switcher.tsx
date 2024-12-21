@@ -4,7 +4,6 @@ import { useState } from "react"
 import TopAlbums from "./album"
 import TopTracks from "./track"
 import { IMusica } from "@/models/Musica";
-import { useTelegram } from "@/lib/telegramProvider";
 
 
 export default function Switcher(props: { data: Array<IMusica> }) {
