@@ -25,18 +25,20 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
 
     const membro: number | undefined = user?.id
     const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
-
-    let top_db: Array<object> = []
-
-    const [top, setTop] = useState<any[]>([])
+    
+    const [top_db, setTopDB] = useState<object[]>([])
 
     useEffect(() => {
         if(filtro.length > 0){
-            top_db = filtro[0].albums
-            setTop(top_db)
+            const top_db = filtro[0].albums
+            setTopDB(top_db)
             console.log("Peguei")
         }
     }, [])
+    
+    const [top, setTop] = useState<any[]>(top_db)
+
+    
 
     const [albums, setAlbums] = useState([])    
     const [showList, setShowList] = useState(false)    
