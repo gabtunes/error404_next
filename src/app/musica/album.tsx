@@ -74,7 +74,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
     return (
         <>
             {
-                user ?
+                (user && webApp) ?
                     (<div className="flex flex-col items-center justify-center gap-5 mt-5" >
                         <input placeholder="Álbum, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
                         <div className="justify-center gap-2 grid grid-cols-2 md:grid-cols-3 place-content-center">
@@ -89,8 +89,8 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                         </div>
 
 
-                        <div className={`p-5 h-full w-[150px] bg-white drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col gap-5 items-center`}>
-                            <button onClick={handleSave} className={`z-0 absolute -left-18 bg-[${webApp?.themeParams.button_color}] text-[${webApp?.themeParams.button_text_color}] text-center ${showList ? "bottom-20" : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
+                        <div className={`p-5 h-full w-[150px] bg-[${webApp.themeParams.secondary_bg_color}] drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col gap-5 items-center`}>
+                            <button onClick={handleSave} className={`z-0 absolute -left-18 bg-[${webApp.themeParams.button_color}] text-[${webApp.themeParams.button_text_color}] text-center ${showList ? "bottom-20" : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
                                 <span className="material-icons">
                                     {
                                         JSON.stringify(top_db) == JSON.stringify(top) ?
@@ -99,7 +99,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                                     }
                                 </span>
                             </button>
-                            <button className={`z-10 absolute bottom-5 -left-18 bg-[${webApp?.themeParams.button_color}] text-[${webApp?.themeParams.button_text_color}] text-center flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`} onClick={() => {
+                            <button className={`z-10 absolute bottom-5 -left-18 bg-[${webApp.themeParams.button_color}] text-[${webApp.themeParams.button_text_color}] text-center flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`} onClick={() => {
                                 setShowList(!showList)
                             }}>
                                 <span className="material-icons">
