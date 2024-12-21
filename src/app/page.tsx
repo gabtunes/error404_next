@@ -2,10 +2,11 @@
 import Banner from "@/components/banner";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 declare global {
   interface Window {
-      Telegram:any;
+    Telegram: any;
   }
 }
 
@@ -20,33 +21,42 @@ interface UserData {
 
 export default function Home() {
   const [data, setData] = useState<UserData | null>(null)
-  const [isLoaded, setIsLoaded] = useState(false)  
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    if(global?.window){
+    if (global?.window) {
       setData(window.Telegram.WebApp.initDataUnsafe.user as UserData)
     }
     setIsLoaded(true)
   }, [])
 
-  if(!isLoaded)
+  if (!isLoaded)
     return <div>Loading...</div>
   else {
     return (
-      <div className="flex flex-col items-center">
+      <div className="p-5 flex flex-col items-center">
         {data &&
           <div>Olá, {data.first_name}</div>
         }
-        <div className="w-full md:w-[600px] grid grid-cols-2 gap-[5px] p-[5px]">
-          <Link href="/charts"><Banner img="CHARTS 2024" /></Link>
-          <Link href="/bolao"><Banner img="BOLÃO 2025" /></Link>
+        <div className="w-full md:w-[600px] grid grid-cols-2 gap-3 p-[5px]">
+          <Link className="flex flex-col items-center" href="/charts">
+            <Image alt="Charts" src="/img/charts.svg" width={100} height={100}></Image>
+            <span>Charts</span>
+          </Link>
+          <Link className="flex flex-col items-center" href="/bolao">
+            <Image alt="Bolão" src="/img/bolao.svg" width={100} height={100}></Image>
+            <span>Bolão</span>
+          </Link>
           {data &&
-            <Link href="/musica"><Banner img="MÚSICA 2024" /></Link>
+            <Link className="flex flex-col items-center" href="/musica">
+              <Image alt="Música" src="/img/music.svg" width={100} height={100}></Image>
+              <span>Música</span>
+            </Link>
           }
-          <Link href="/webapp"><Banner img="TESTE" /></Link>
+
         </div>
       </div>
     );
   }
-  
+
 }
