@@ -33,7 +33,7 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
             setTopDB(filtro[0].albums)
             console.log("Peguei")
         }
-    }, top_db)
+    })
 
     const [top, setTop] = useState<any[]>(top_db)    
     const [albums, setAlbums] = useState([])    
