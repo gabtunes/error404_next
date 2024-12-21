@@ -34,7 +34,9 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
             console.log(filtro)
             if (filtro.length > 0) {
                 setTopDB(filtro[0].albums)
-                setTop(top_db)
+                console.log(top_db)
+                setTop(filtro[0].albums)
+                console.log(top)
             }
         }
     }, [user])    
