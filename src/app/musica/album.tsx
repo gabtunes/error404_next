@@ -172,7 +172,7 @@ function ResultAlbum(props: any) {
                 <div className="absolute w-full h-full backface-hidden">
                     <img width="200px" src={props["album"].images[2]}></img>
                 </div>
-                <div className={`bg-[${props["webapp"].themeParams.section_bg_color}] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
+                <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
                     <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["album"].name}</p>
                     <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["album"].artistName}</p>
                     {(top.length < 10) &&
