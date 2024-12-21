@@ -24,20 +24,16 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
     const { user } = useTelegram();
 
     const membro: number | undefined = user?.id
+    const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
 
     const [top_db, setTopDB] = useState<object[]>([])
     const [top, setTop] = useState<object[]>([])
     
     useEffect(() => {
         if (user) {
-            const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
-            console.log(filtro)
             if (filtro.length > 0) {
-                console.log(filtro[0].albums)
                 setTopDB(filtro[0].albums)
-                console.log(top_db)
                 setTop(filtro[0].albums)
-                console.log(top)
             }
         }
     }, [user])    
@@ -79,7 +75,6 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
             {
                 user ?
                     (<div className="flex flex-col items-center justify-center gap-5 mt-5" >
-                        <div>{membro}</div>
                         <input placeholder="Álbum, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
                         <div className="justify-center gap-2 grid grid-cols-2 md:grid-cols-3 place-content-center">
                             {albums &&
