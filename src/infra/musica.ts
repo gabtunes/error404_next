@@ -43,7 +43,7 @@ export async function addMusicafromMembro(membro: number, ano: number, albums: A
             updated_at: new Date()
         });
 
-        revalidatePath("/")
+        revalidatePath("/musica")
     } catch (err: any){
         return NextResponse.json({ error: err.message });
     }
@@ -59,7 +59,7 @@ export async function updateMusicafromMembro(membro: number, ano: number, update
             ano: ano},
             {"$set": update});
 
-        revalidatePath("/")
+        revalidatePath("/musica")
     } catch (err: any){
         return NextResponse.json({ error: err.message });
     }
