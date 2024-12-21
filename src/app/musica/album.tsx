@@ -39,7 +39,7 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
     
     useEffect(() => {
         setTop(top_db)
-    })
+    }, top)
 
     const [albums, setAlbums] = useState([])    
     const [showList, setShowList] = useState(false)    
