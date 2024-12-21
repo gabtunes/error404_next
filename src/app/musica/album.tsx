@@ -68,6 +68,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
             } else {
                 await updateMusicafromMembro(membro, 2024, { albums: top })
             }
+            setTopDB(filtro[0].albums)
         }
     }
 
