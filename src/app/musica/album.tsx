@@ -2,7 +2,7 @@
 
 import { addMusicafromMembro, updateMusicafromMembro } from "@/infra/musica";
 import { IMusica } from "@/models/Musica";
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { useTelegram } from "@/lib/telegramProvider";
 
 interface SearchContextType {
@@ -28,16 +28,20 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
 
     let top_db: Array<object>
 
+    if(filtro.length > 0){
+        top_db = filtro[0].albums
+    } else {
+        top_db = []
+    }
+
     const [albums, setAlbums] = useState([])
     const [top, setTop] = useState<any[]>([])
     const [showList, setShowList] = useState(false)
 
-    if(filtro.length > 0){
-        top_db = filtro[0].albums
+    useEffect(() => {
         setTop(top_db)
-    } else {
-        top_db = []
-    }
+    }, [])
+    
     
     console.log(top)
     /* eslint-disable */
