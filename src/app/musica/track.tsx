@@ -168,13 +168,13 @@ function ResultTrack(props: any) {
 
     return (
         <div id={props["track"].artistName + "_" + props["track"].name}
-            className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 w-full h-[100px] flex flex-row items-center justify-center`}>
-            <div className="flex flex-col items-start">
+            className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 w-full h-[100px] grid grid-cols-5 justify-start`}>
+            <div className="flex flex-col items-start col-span-4">
                 <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["track"].name}</p>
                 <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["track"].artistName}</p>
             </div>
             {(top.length < 10) &&
-                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
+                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3 justify-center" onClick={() => {
                     if (!JSON.stringify(top).includes(JSON.stringify(props["track"]))) {
                         setTop([...top, props["track"]])
                     }
