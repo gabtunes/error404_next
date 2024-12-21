@@ -35,7 +35,7 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
             console.log("Peguei")
         }
         setTop(top_db)
-    })
+    }, [])
 
     
     const [albums, setAlbums] = useState([])    
