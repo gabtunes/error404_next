@@ -28,16 +28,17 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
 
     let top_db: Array<object>
 
+    const [albums, setAlbums] = useState([])
+    const [top, setTop] = useState<any[]>([])
+    const [showList, setShowList] = useState(false)
+
     if(filtro.length > 0){
         top_db = filtro[0].albums
+        setTop(top_db)
     } else {
         top_db = []
     }
-
-    console.log(top_db)
-    const [albums, setAlbums] = useState([])
-    const [top, setTop] = useState<any[]>(top_db)
-    const [showList, setShowList] = useState(false)
+    
     console.log(top)
     /* eslint-disable */
     const LastFM = require('last-fm')
