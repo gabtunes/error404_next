@@ -18,8 +18,8 @@ export default function Switcher(props: { data: Array<IMusica> }) {
             webApp ?
             (<div className="flex flex-col items-center" >
                 <div className="flex flex-row gap-5">
-                    <div className={`p-3 text-telegram-text bg-[${page == "albums" ? "telegram-button" : "telegram-background"}]`} onClick={() => { setPage("albums") }}>Top Álbuns</div>
-                    <div className={`p-3 text-telegram-text bg-[${page == "musicas" ? "telegram-button" : "telegram-background"}]`} onClick={() => { setPage("musicas") }}>Top Músicas</div>
+                    <div className={`p-3 text-[var(--tg-theme-button-text-color)] ${page == "albums" ? "bg-[var(--tg-theme-button-color)]" : "bg-[var(--tg-theme-bg-color)]"}`} onClick={() => { setPage("albums") }}>Top Álbuns</div>
+                    <div className={`p-3 text-[var(--tg-theme-button-text-color)] ${page == "musicas" ? "bg-[var(--tg-theme-button-color)]" : "bg-[var(--tg-theme-bg-color)]"}`} onClick={() => { setPage("musicas") }}>Top Músicas</div>
                 </div>
                 <div className={`${page == "albums" ? "" : "hidden"}`}>
                     <TopAlbums albums_db={data} />
