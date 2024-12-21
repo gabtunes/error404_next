@@ -25,7 +25,6 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
 
     const membro: number | undefined = user?.id
     const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
-    console.log(filtro)
 
     const [top_db, setTopDB] = useState<object[]>([])
     const [top, setTop] = useState<object[]>([])
@@ -68,7 +67,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
             } else {
                 await updateMusicafromMembro(membro, 2024, { albums: top })
             }
-            setTopDB(filtro[0].albums)
+            setTopDB(top)
         }
     }
 
