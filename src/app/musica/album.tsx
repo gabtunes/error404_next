@@ -2,7 +2,7 @@
 
 import { addMusicafromMembro, updateMusicafromMembro } from "@/infra/musica";
 import { IMusica } from "@/models/Musica";
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useState } from "react"
 import { useTelegram } from "@/lib/telegramProvider";
 
 interface SearchContextType {
