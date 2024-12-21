@@ -89,7 +89,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                         </div>
 
 
-                        <div className={`overflow-auto p-5 h-full w-[150px] bg-[var(--tg-theme-secondary-bg-color)] drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col gap-5 items-center`}>
+                        <div className={`p-5 h-full w-[150px] bg-[var(--tg-theme-secondary-bg-color)] drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col items-center`}>
                             <button onClick={handleSave} className={`z-0 absolute -left-18 bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] text-center ${showList ? "bottom-20" : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
                                 <span className="material-icons">
                                     {
@@ -112,6 +112,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                                     }
                                 </span>
                             </button>
+                            <div className={`overflow-y-contain overflow-x-none flex flex-col gap-5 items-center`}>
                             {
                                 top.map((album: any, index: any) => (
                                     <div className="flex flex-col gap-2" key={index}>
@@ -152,6 +153,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                                     </div>
                                 ))
                             }
+                            </div>
                         </div>
                     </div>) :
                     (<div></div>)
