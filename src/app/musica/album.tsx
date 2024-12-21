@@ -33,6 +33,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
             const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
             console.log(filtro)
             if (filtro.length > 0) {
+                console.log(filtro[0].albums)
                 setTopDB(filtro[0].albums)
                 console.log(top_db)
                 setTop(filtro[0].albums)
