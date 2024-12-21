@@ -22,15 +22,17 @@ const useSearchContext = () => {
 
 export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
     const { user } = useTelegram();
-    console.log(user);
 
     const membro: number | undefined = user?.id
     const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
+    console.log(filtro)
     
-    let top_db: Array<object> = []
+    let top_db: Array<object>
 
     if(filtro.length > 0){
         top_db = filtro[0].albums
+    } else {
+        top_db = []
     }
 
     console.log(top_db)
