@@ -21,7 +21,7 @@ const useSearchContext = () => {
 };
 
 export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
-    const { user } = useTelegram();
+    const { user, webApp } = useTelegram();
 
     const membro: number | undefined = user?.id
     const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
@@ -82,7 +82,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                                 albums.map((album: any) => (
                                     (album.images.length != 0) &&
                                     <SearchContext.Provider value={{ top, setTop }} key={album.artistName + "_" + album.name} >
-                                        <ResultAlbum album={album} />
+                                        <ResultAlbum webapp={webApp} album={album} />
                                     </SearchContext.Provider>
                                 ))
                             }
@@ -90,7 +90,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
 
 
                         <div className={`p-5 h-full w-[150px] bg-white drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col gap-5 items-center`}>
-                            <button onClick={handleSave} className={`z-0 absolute -left-18 bg-white text-center ${showList ? "bottom-20" : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
+                            <button onClick={handleSave} className={`z-0 absolute -left-18 bg-[${webApp?.themeParams.button_color}] text-[${webApp?.themeParams.button_text_color}] text-center ${showList ? "bottom-20" : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
                                 <span className="material-icons">
                                     {
                                         JSON.stringify(top_db) == JSON.stringify(top) ?
@@ -99,7 +99,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                                     }
                                 </span>
                             </button>
-                            <button className="z-10 absolute bottom-5 -left-18 bg-white text-center flex items-center justify-center rounded-full drop-shadow-sm size-[50px]" onClick={() => {
+                            <button className={`z-10 absolute bottom-5 -left-18 bg-[${webApp?.themeParams.button_color}] text-[${webApp?.themeParams.button_text_color}] text-center flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`} onClick={() => {
                                 setShowList(!showList)
                             }}>
                                 <span className="material-icons">
@@ -172,9 +172,9 @@ function ResultAlbum(props: any) {
                 <div className="absolute w-full h-full backface-hidden">
                     <img width="200px" src={props["album"].images[2]}></img>
                 </div>
-                <div className="bg-gray-100 p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center">
-                    <p className="text-sm">{props["album"].name}</p>
-                    <p className="text-sm text-gray-700">{props["album"].artistName}</p>
+                <div className={`bg-[${props["webapp"].themeParams.section_bg_color}] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
+                    <p className={`text-sm text-[${props["webapp"].themeParams.text_color}]`}>{props["album"].name}</p>
+                    <p className={`text-sm text-[${props["webapp"].themeParams.subtitle_text_color}]`}>{props["album"].artistName}</p>
                     {(top.length < 10) &&
                         <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
                             if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
