@@ -30,6 +30,7 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
 
     if(filtro.length > 0){
         top_db = filtro[0].albums
+        console.log("Peguei")
     } else {
         top_db = []
     }
@@ -40,10 +41,10 @@ export default function TopAlbums(props: {albums_db: Array<IMusica>}) {
 
     useEffect(() => {
         setTop(top_db)
-    }, [])
+        console.log(top)
+    }, [])   
     
     
-    console.log(top)
     /* eslint-disable */
     const LastFM = require('last-fm')
     /* eslint-disable */
