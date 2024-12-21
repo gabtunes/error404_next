@@ -21,7 +21,7 @@ const useSearchContext = () => {
 };
 
 export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
-    const { user, webApp } = useTelegram();
+    const { user } = useTelegram();
 
     const membro: number | undefined = user?.id
     const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
@@ -62,7 +62,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
 
     const handleSave = async () => {
         if (top_db != top && membro) {
-            if (top_db.length == 0) {
+            if (filtro.length == 0) {
                 await addMusicafromMembro(membro, 2024, top, [])
             } else {
                 await updateMusicafromMembro(membro, 2024, { albums: top })
@@ -74,7 +74,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
     return (
         <>
             {
-                (user && webApp) ?
+                (user) ?
                     (<div className="flex flex-col items-center justify-center gap-5 mt-5" >
                         <input placeholder="Álbum, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
                         <div className="justify-center gap-2 grid grid-cols-2 md:grid-cols-3 place-content-center">
