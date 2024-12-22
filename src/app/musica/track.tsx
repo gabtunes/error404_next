@@ -120,8 +120,8 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                                             <span className="leading-none funnel-sans text-[50px] w-70px text-[var(--tg-theme-text-color)]">{index + 1}</span>
                                             
                                             <div className="h-[70px] w-[120px] flex flex-col justify-center items-end">
-                                                <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{track.name}</p>
-                                                <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{track.artistName}</p>
+                                                <p className={`text-right text-sm text-[var(--tg-theme-text-color)]`}>{track.name}</p>
+                                                <p className={`text-right text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{track.artistName}</p>
                                             </div>
 
                                             <div className="grid grid-rows-3">
