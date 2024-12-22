@@ -90,7 +90,7 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                         </div>
 
 
-                        <div className={`h-full w-[300px] bg-[var(--tg-theme-secondary-bg-color)] drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col items-center`}>
+                        <div className={`h-full w-[250px] bg-[var(--tg-theme-secondary-bg-color)] drop-shadow-xl ${showList ? "right-0" : "-right-[250px]"} duration-[800ms] top-0 fixed flex flex-col items-center`}>
                             <button onClick={handleSave} className={`z-0 absolute -left-18 bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] text-center ${showList ? (JSON.stringify(top_db) == JSON.stringify(top) ? "bottom-5" : "bottom-20") : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
                                 <span className="material-icons">
                                     {
@@ -118,10 +118,12 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                                     top.map((track: any, index: any) => (
                                         <div className="flex flex-col gap-2" key={index}>
                                             <span className="leading-none funnel-sans text-[65px] text-[var(--tg-theme-text-color)]">{index + 1}</span>
+                                            
                                             <div className="h-[100px] w-[200px] flex flex-col items-end">
                                                 <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{track.name}</p>
                                                 <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{track.artistName}</p>
                                             </div>
+
                                             <div className="grid grid-rows-3">
                                                 {(index != 0) &&
                                                     <button className="row-start-1 material-icons" onClick={() => {
@@ -151,7 +153,6 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                                                     }}>keyboard_arrow_down</button>
                                                 }
                                             </div>
-
                                         </div>
                                     ))
                                 }
