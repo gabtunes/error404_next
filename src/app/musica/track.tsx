@@ -175,7 +175,7 @@ function ResultTrack(props: any) {
                 <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["track"].name}</p>
                 <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["track"].artistName}</p>
             </div>
-            {(top.length < 10) &&
+            {(top.length < 20) &&
                 <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3 justify-self-center" onClick={() => {
                     if (!JSON.stringify(top).includes(JSON.stringify(props["track"]))) {
                         setTop([...top, props["track"]])
