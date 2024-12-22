@@ -117,9 +117,9 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                                 {
                                     top.map((track: any, index: any) => (
                                         <div className="flex flex-row items-center gap-2" key={index}>
-                                            <span className="leading-none funnel-sans text-[50px] w-[70px] text-right text-[var(--tg-theme-text-color)]">{index + 1}</span>
+                                            <span className="leading-none funnel-sans text-[50px] w-[80px] text-right text-[var(--tg-theme-text-color)]">{index + 1}</span>
                                             
-                                            <div className="h-[70px] w-[100px] flex flex-col justify-center items-end">
+                                            <div className="h-[70px] w-[120px] flex flex-col justify-center items-end">
                                                 <p className={`text-right text-sm text-[var(--tg-theme-text-color)]`}>{track.name}</p>
                                                 <p className={`text-right text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{track.artistName}</p>
                                             </div>
