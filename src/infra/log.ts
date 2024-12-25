@@ -393,9 +393,9 @@ export async function getLogs(){
             { maxTimeMS: 60000, allowDiskUse: true }
           );
 
-        return NextResponse.json(logs);
+        return new NextResponse(JSON.stringify(logs));
     } catch (err: any){
-        return NextResponse.json({ error: err.message });
+        return new NextResponse("error:" + err.message);
     }
     
 }

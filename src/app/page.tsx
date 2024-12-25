@@ -2,12 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { TelegramProvider } from "@/lib/telegramProvider";
 import Logs from "@/components/logs";
-import { getLogs } from "@/infra/log";
 import Header from "@/components/header";
 
 export default async function Home() {
-  const data = await (await getLogs()).json();
-
   return (
     <TelegramProvider>
       <div className="p-5 flex flex-col items-center">
@@ -21,12 +18,12 @@ export default async function Home() {
             <Image alt="Bolão" src="/img/bolao.svg" width={100} height={100}></Image>
             <span>Bolão</span>
           </Link>
-            <Link className="flex flex-col items-center" href="/musica">
-              <Image alt="Música" src="/img/music.svg" width={100} height={100}></Image>
-              <span>Música</span>
-            </Link>
+          <Link className="flex flex-col items-center" href="/musica">
+            <Image alt="Música" src="/img/music.svg" width={100} height={100}></Image>
+            <span>Música</span>
+          </Link>
         </div>
-        <Logs data={data}/>
+        <Logs />
       </div>
     </TelegramProvider>
   );

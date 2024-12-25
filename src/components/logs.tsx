@@ -1,34 +1,29 @@
 'use client'
 
-import { refreshLogs } from '@/infra/log';
 import { useTelegram } from '@/lib/telegramProvider';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useSWR from 'swr';
 
+const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
-const Logs = (props: any) => {
+const Logs = () => {
   const { user } = useTelegram()
 
-  const [data, setData] = useState(props["data"])
-  const filtro = props["data"].filter((registro: any) => registro.membro.id_telegram == user?.id)
+  const url = user ? "/api/log?user=" + user.id : "/api/log"
 
-  useEffect(() => {
-    if (user) {
-      setData(filtro)
-    }
-  }, [user, filtro])
+  const { data, error, isLoading } = useSWR(url, fetcher)
 
+  if (error) return <div>falhou em carregar</div>
+  if (isLoading) return <div>carregando...</div>
   return (
     <div>
+      <div>Logs</div>
       <div>
-        Logs
-        <span onClick={() => { refreshLogs() }} className='material-icons'>refresh</span>
-      </div>
-      <div>
-        {data.map((log: any) => (
-          <div key={log._id.membro + log._id.tmdb}>
-            {log._id.membro} - {log.filme[0]?.titulo} - {log.logs[0]?.nota}
-          </div>
-        ))}
+          {data?.map((log: any) => (
+            <div key={log._id.membro + log._id.tmdb}>
+              {log.filme[0]?.titulo} - {log._id.membro} - {log.logs[0].nota}
+            </div>
+          ))}
       </div>
     </div>
   );
