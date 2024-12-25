@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { TelegramProvider, useTelegram } from "@/lib/telegramProvider";
+import { TelegramProvider } from "@/lib/telegramProvider";
 import Logs from "@/components/logs";
 import { getLogs } from "@/infra/log";
 import Header from "@/components/header";

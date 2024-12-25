@@ -15,13 +15,13 @@ const Logs = (props: any) => {
     if (user) {
       setData(filtro)
     }
-  }, [user])
+  }, [user, filtro])
 
   return (
     <div>
       <div>
         Logs
-        <span onClick={() => { refreshLogs }} className='material-icons'>refresh</span>
+        <span onClick={() => { refreshLogs() }} className='material-icons'>refresh</span>
       </div>
       <div>
         {data.map((log: any) => (
