@@ -100,6 +100,8 @@ export const GET = async(request: NextRequest) =>{
                     }
                   },{
                     "$sort": { 'ultimo_log': -1, 'ultimo_update': -1 }
+                  },{
+                    "$limit": 50
                   }
                 ],
                 { maxTimeMS: 60000, allowDiskUse: true }
