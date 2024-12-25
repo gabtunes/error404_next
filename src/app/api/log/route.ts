@@ -3,11 +3,6 @@
 import Log from "@/models/Log";
 import dbConnect from "@/lib/connectDB";
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
-
-export async function refreshLogs(){
-    revalidatePath("/")
-}
 
 export const GET = async(request: NextRequest) =>{
     await dbConnect();
