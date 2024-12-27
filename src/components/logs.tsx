@@ -29,7 +29,7 @@ const Logs = () => {
       <div className='w-full h-10 p-3 flex flex-row items-center bg-[var(--foreground)] text-[var(--background)]'>
         <div>Logs</div>
       </div>
-      <div className='flex flex-col  gap-3'>
+      <div className='flex flex-col gap-6'>
           {data?.map((log: any, index: number) => (
             <div className='flex flex-col' key={log._id.membro + log._id.tmdb}>
                 {(index > 0 && data[index - 1].ultimo_log.split("T")[0] == log.ultimo_log.split("T")[0]) ?
