@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { TelegramProvider } from "@/lib/telegramProvider";
 import Logs from "@/components/logs";
 import Header from "@/components/header";
