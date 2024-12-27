@@ -3,28 +3,29 @@ import Image from "next/image";
 import { TelegramProvider } from "@/lib/telegramProvider";
 import Logs from "@/components/logs";
 import Header from "@/components/header";
+import Botao from "@/components/botao";
 
 export default async function Home() {
   return (
     <TelegramProvider>
-      <div className="p-5 flex flex-col items-center">
-        <Header />
-        <div className="w-full md:w-[600px] grid grid-cols-2 gap-3 p-[5px]">
+      <div className="p-2 flex flex-col items-center w-full md:w-[600px]">
+        <Header />  
+        <div className="flex flex-row flex-wrap justify-between gap-3 p-3">
           <Link className="flex flex-col items-center" href="/charts">
-            <Image alt="Charts" src="/img/charts.svg" width={100} height={100}></Image>
-            <span>Charts</span>
+            <Botao titulo="Charts"/>
           </Link>
           <Link className="flex flex-col items-center" href="/bolao">
-            <Image alt="Bolão" src="/img/bolao.svg" width={100} height={100}></Image>
-            <span>Bolão</span>
+          <Botao titulo="Bolão"/>
           </Link>
           <Link className="flex flex-col items-center" href="/musica">
-            <Image alt="Música" src="/img/music.svg" width={100} height={100}></Image>
-            <span>Música</span>
+          <Botao titulo="Música"/>
+          </Link>
+          <Link className="flex flex-col items-center" href="/">
+          <Botao titulo="Wrapped"/>
           </Link>
         </div>
         <Logs />
-      </div>
+      </div>     
     </TelegramProvider>
   );
 }

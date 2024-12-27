@@ -27,7 +27,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap" />
         <Script src="https://telegram.org/js/telegram-web-app.js?56" strategy="beforeInteractive"/>
       </head>
-      <body className="h-full w-full bg-[var(--tg-theme-bg-color)] no-scrollbar">
+      <body className="h-full w-full flex justify-center bg-[var(--tg-theme-bg-color)] no-scrollbar">
         {children}
         <SpeedInsights />
       </body>
