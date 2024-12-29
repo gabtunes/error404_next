@@ -20,6 +20,9 @@ const Log = (props: any) => {
     return (
         <div className='flex flex-row gap-3'>
             <div className='relative w-16 h-24 bg-blue-400'>
+                {log.filme[0]?.poster &&
+                    <Image src={"https://image.tmdb.org/t/p/w500" + log.filme[0]?.poster} alt="" width={64} height={96}/>
+                }                
                 {(fileData?.ok && !user) &&
                     <Image className="absolute -bottom-3 -right-3 rounded-full" alt="Perfil" width={35} height={35} src={"https://api.telegram.org/file/bot6467847581:AAH6c0YZgmpMXC91CP4VHpG_djDYzc-JnJc/" + fileData?.result?.file_path} />
                 }

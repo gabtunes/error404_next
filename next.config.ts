@@ -15,6 +15,13 @@ const nextConfig: NextConfig = {
             pathname: '/file/bot6467847581:AAH6c0YZgmpMXC91CP4VHpG_djDYzc-JnJc/**',
             search: '',
           },
+          {
+            protocol: 'https',
+            hostname: 'image.tmdb.org',
+            port: '',
+            pathname: '/t/p/w500/**',
+            search: '',
+          },
         ],
       },
 };
