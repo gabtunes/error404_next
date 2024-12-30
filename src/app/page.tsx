@@ -5,6 +5,11 @@ import Header from "@/components/header";
 import Botao from "@/components/botao";
 
 export default async function Home() {
+
+  const agora = new Date()
+  const options = { timeZone: 'America/Sao_Paulo' };
+  const agoraBrasil = agora.toLocaleString('pt-BR', options);
+
   return (
     <TelegramProvider>
       <div className="p-2 flex flex-col items-center w-full md:w-[600px]">
@@ -16,9 +21,11 @@ export default async function Home() {
           <Link className="flex flex-col items-center" href="/bolao">
           <Botao titulo="Bolão"/>
           </Link>
-          <Link className="flex flex-col items-center" href="/musica">
-          <Botao titulo="Música"/>
-          </Link>
+          {(agoraBrasil < "30/12/2024, 23:30:00") &&
+            <Link className="flex flex-col items-center" href="/musica">
+            <Botao titulo="Música"/>
+            </Link>
+          }          
           <Link className="flex flex-col items-center" href="/">
           <Botao titulo="Wrapped"/>
           </Link>

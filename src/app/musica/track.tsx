@@ -21,6 +21,7 @@ const useSearchContext = () => {
 };
 
 export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
+
     const { user } = useTelegram();
 
     const membro: number | undefined = user?.id
@@ -62,7 +63,11 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
     }
 
     const handleSave = async () => {
-        if (top_db != top && membro) {
+        const agora = new Date()
+        const options = { timeZone: 'America/Sao_Paulo' };
+        const agoraBrasil = agora.toLocaleString('pt-BR', options);
+        
+        if (top_db != top && membro && (agoraBrasil > "30/12/2024, 23:30:00")) {
             if (filtro.length == 0) {
                 await addMusicafromMembro(membro, 2024, [], top)
             } else {
