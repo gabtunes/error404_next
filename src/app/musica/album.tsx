@@ -65,7 +65,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
         const options = { timeZone: 'America/Sao_Paulo' };
         const agoraBrasil = agora.toLocaleString('pt-BR', options);
         
-        if (top_db != top && membro && (agoraBrasil > "30/12/2024, 23:30:00")) {
+        if (top_db != top && membro && (agoraBrasil < "30/12/2024, 23:30:00")) {
             if (filtro.length == 0) {
                 await addMusicafromMembro(membro, 2024, top, [])
             } else {
