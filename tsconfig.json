@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/connectDB.js", "src/lib/connectDB.js", "src/app/charts/charts.tsx", "src/app/musica/switcher.tsx", "src/app/api/log/route.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/connectDB.js", "src/lib/connectDB.js", "src/app/charts/charts.tsx", "src/app/musica/createList/switcher.tsx", "src/app/api/log/route.ts"],
   "exclude": ["node_modules"]
 }

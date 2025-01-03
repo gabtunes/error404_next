@@ -19,15 +19,13 @@ export default async function Home() {
             <Botao titulo="Charts"/>
           </Link>
           <Link className="flex flex-col items-center" href="/bolao">
-          <Botao titulo="Bolão"/>
+            <Botao titulo="Bolão"/>
           </Link>
-          {(agoraBrasil < "30/12/2024, 23:30:00") &&
-            <Link className="flex flex-col items-center" href="/musica">
+          <Link className="flex flex-col items-center" href="/musica">
             <Botao titulo="Música"/>
-            </Link>
-          }          
+          </Link>          
           <Link className="flex flex-col items-center" href="/">
-          <Botao titulo="Wrapped"/>
+            <Botao titulo="Wrapped"/>
           </Link>
         </div>
         <Logs />
