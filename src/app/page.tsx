@@ -5,11 +5,6 @@ import Header from "@/components/header";
 import Botao from "@/components/botao";
 
 export default async function Home() {
-
-  const agora = new Date()
-  const options = { timeZone: 'America/Sao_Paulo' };
-  const agoraBrasil = agora.toLocaleString('pt-BR', options);
-
   return (
     <TelegramProvider>
       <div className="p-2 flex flex-col items-center w-full md:w-[600px]">
