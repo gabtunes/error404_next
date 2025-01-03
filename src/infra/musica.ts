@@ -9,7 +9,24 @@ export async function getAllMusica(){
     await dbConnect();
     
     try {
-        const musica = await Musica.find({});
+        const musica = await Musica.aggregate(
+            [
+              {
+                "$lookup": {
+                  'from': 'membro',
+                  'localField': 'membro',
+                  'foreignField': 'id_telegram',
+                  'as': 'membro'
+                }
+              },
+              {
+                '$addFields': {
+                  'membro': { '$arrayElemAt': ['$membro', 0] }
+                }
+              }
+            ],
+            { maxTimeMS: 60000, allowDiskUse: true }
+          );
 
         return NextResponse.json(musica);
     } catch (err: any){
@@ -59,7 +76,7 @@ export async function updateMusicafromMembro(membro: number, ano: number, update
             ano: ano},
             {"$set": update});
 
-        revalidatePath("/musica")
+        revalidatePath("/musica/createList")
     } catch (err: any){
         return NextResponse.json({ error: err.message });
     }
