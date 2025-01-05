@@ -171,6 +171,8 @@ function ResultAlbum(props: any) {
 
     const { data, isLoading } = useSWR("https://coverartarchive.org/release-group/" + props["album"].id, fetcher2)
 
+    
+
     if (isLoading)
         return (
             <div id={props["album"].id}
@@ -198,7 +200,15 @@ function ResultAlbum(props: any) {
                 </div>
             </div>
         )
-    else
+    else if(data){    
+
+        const album = {
+            "id": props["album"].id,
+            "titulo": props["album"].title,
+            "artista": props["album"]["artist-credit"][0].name,
+            "imagem": data.images[0].thumbnails.small
+        } 
+
         return (
             <>
                 {data &&
@@ -214,17 +224,11 @@ function ResultAlbum(props: any) {
                                 <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["album"]["artist-credit"][0].name}</p>
                                 {(top.length < 10) &&
                                     <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
-                                        if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
-                                            const album = {
-                                                "id": props["album"].id,
-                                                "titulo": props["album"].title,
-                                                "artista": props["album"]["artist-credit"][0].name,
-                                                "imagem": data.images[0].thumbnails.small
-                                            }
+                                        if (!JSON.stringify(top).includes(JSON.stringify(album))) {
                                             setTop([...top, album])
                                         }
                                     }}>
-                                        {JSON.stringify(top).includes(JSON.stringify(props["album"])) ?
+                                        {JSON.stringify(top).includes(JSON.stringify(album)) ?
                                             "check" :
                                             "add"
                                         }</button>
@@ -234,6 +238,6 @@ function ResultAlbum(props: any) {
                     </div>
                 }
             </>
-
         )
+    }
 }
