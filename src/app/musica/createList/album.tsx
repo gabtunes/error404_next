@@ -29,10 +29,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
 
     const membro: number | undefined = user?.id
     const [ano, setAno] = useState(new Date().getFullYear())
-    console.log(ano)
-    //const membro = 286273535
-    console.log(props["albums_db"])
-    const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
+    const filtro = props["albums_db"].filter((registro: any) => registro["membro"]["id_telegram"] == membro /*&& registro["ano"] == ano*/)
 
     const [top_db, setTopDB] = useState<object[]>([])
     const [top, setTop] = useState<object[]>([])
