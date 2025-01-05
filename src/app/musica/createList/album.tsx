@@ -207,7 +207,7 @@ function ResultAlbum(props: any) {
                         onClick={() => { setRotate(!rotate) }}>
                         <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180" : ""}`}>
                             <div className="absolute w-full h-full backface-hidden">
-                                <img width="200px" src={data.images[0].image}></img>
+                                <img width="200px" src={data.images[0].thumbnails.small}></img>
                             </div>
                             <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
                                 <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["album"].title}</p>
@@ -219,7 +219,7 @@ function ResultAlbum(props: any) {
                                                 "id": props["album"].id,
                                                 "titulo": props["album"].title,
                                                 "artista": props["album"]["artist-credit"][0].name,
-                                                "imagem": data.images[0].image
+                                                "imagem": data.images[0].thumbnails.small
                                             }
                                             setTop([...top, album])
                                         }
