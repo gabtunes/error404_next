@@ -56,14 +56,12 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
 
     const handleChange = (e: any) => {
         if (e.target.value.length > 0) {
-            if (e.target.value.length > 0) {
-                setTermo(e.target.value)
-                setAno(new Date().getFullYear())
-                if (data)
-                    setTracks(data["recordings"])
-            } else {
-                setTracks([])
-            }
+            setTermo(e.target.value)
+            setAno(new Date().getFullYear())
+            if (data)
+                setTracks(data["recordings"])
+        } else {
+            setTracks([])
         }
     }
 
@@ -91,7 +89,6 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
                         <div className="flex flex-col items-center w-[300px] gap-3">
                             {tracks &&
                                 tracks.map((track: any) => (
-                                    (track.images.length != 0) &&
                                     <SearchContext.Provider value={{ top, setTop }} key={track.id} >
                                         <ResultTrack track={track} />
                                     </SearchContext.Provider>
@@ -179,11 +176,11 @@ function ResultTrack(props: any) {
     const { top, setTop } = useSearchContext();
 
     const artistas = props["track"]["artist-credit"].map((artista: any) => {
-        if(artista.joinphrase){
-            [artista.name,artista.joinphrase].join("");
+        if (artista.joinphrase) {
+            [artista.name, artista.joinphrase].join("");
         } else {
             [artista.name].join("");
-        }        
+        }
     })
 
     const artista = artistas.join("");
