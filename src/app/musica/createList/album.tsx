@@ -168,7 +168,7 @@ function ResultAlbum(props: any) {
     const { top, setTop } = useSearchContext();
     const [rotate, setRotate] = useState(false)
 
-    const { data, error, isLoading } = useSWR("https://coverartarchive.org/release-group/" + props["album"].id, fetcher2)
+    const { data, isLoading } = useSWR("https://coverartarchive.org/release-group/" + props["album"].id, fetcher2)
 
     if (isLoading)
         return (
