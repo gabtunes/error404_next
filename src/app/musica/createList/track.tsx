@@ -182,7 +182,7 @@ function ResultTrack(props: any) {
         if(artista.joinphrase){
             [artista.name,artista.joinphrase].join("");
         } else {
-            artista.name
+            [artista.name].join("");
         }        
     })
 
