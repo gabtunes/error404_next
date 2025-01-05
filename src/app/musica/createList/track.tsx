@@ -53,6 +53,10 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
         "%20AND%20primarytype:(%22Album%22%20OR%20%22EP%22%20OR%20%22Single%22)" +
         "%20AND%20-secondarytype:%22Demo%22" +
         "&fmt=json", fetcher)
+    
+        if(data){
+            console.log(data)
+        }
 
     const handleChange = (e: any) => {
         if (e.target.value.length > 0) {
@@ -186,8 +190,8 @@ function ResultTrack(props: any) {
     const artista = artistas.join("");
 
     const track = {
-        "id": props["album"].id,
-        "titulo": props["album"].title,
+        "id": props["track"].id,
+        "titulo": props["track"].title,
         "artista": artista
     }
 
