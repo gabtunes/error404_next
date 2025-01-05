@@ -35,7 +35,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
 
     const [top_db, setTopDB] = useState<object[]>([])
     const [top, setTop] = useState<object[]>([])
-    
+
     useEffect(() => {
         if (user) {
             if (filtro.length > 0) {
@@ -49,16 +49,16 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
     const [showList, setShowList] = useState(false)
     const [termo, setTermo] = useState("")
 
-    const { data } = useSWR("https://musicbrainz.org/ws/2/release-group/?query=" + termo + 
-    "%20AND%20firstreleasedate:" + ano +
-    "%20AND%20primarytype:Album%20OR%20EP" +
-    "&fmt=json", fetcher)
+    const { data } = useSWR("https://musicbrainz.org/ws/2/release-group/?query=" + termo +
+        "%20AND%20firstreleasedate:" + ano +
+        "%20AND%20primarytype:Album%20OR%20EP" +
+        "&fmt=json", fetcher)
 
     const handleChange = async (e: any) => {
         if (e.target.value.length > 0) {
-           setTermo(e.target.value)
-           setAno(new Date().getFullYear())
-           if (data)
+            setTermo(e.target.value)
+            setAno(new Date().getFullYear())
+            if (data)
                 setAlbums(data["release-groups"])
         } else {
             setAlbums([])
@@ -69,7 +69,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
         const agora = new Date()
         const options = { timeZone: 'America/Sao_Paulo' };
         const agoraBrasil = agora.toLocaleString('pt-BR', options);
-        
+
         if (top_db != top && membro && (agoraBrasil < "30/12/2024, 23:30:00")) {
             if (filtro.length == 0) {
                 await addMusicafromMembro(membro, 2024, top, [])
@@ -81,86 +81,92 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center gap-5 mt-5" >
-                        <input placeholder="Álbum, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
-                        <div className="justify-center gap-2 grid grid-cols-2 md:grid-cols-3 place-content-center">
-                            {albums &&
-                                albums.map((album: any) => (
-                                    <SearchContext.Provider value={{ top, setTop }} key={album.id} >
-                                        <ResultAlbum album={album} />
-                                    </SearchContext.Provider>
-                                ))
-                            }
-                        </div>
-
-
-                        <div className={`h-full w-[150px] bg-[var(--tg-theme-secondary-bg-color)] drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col items-center`}>
-                            <button onClick={handleSave} className={`z-0 absolute -left-18 bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] text-center ${showList ? (JSON.stringify(top_db) == JSON.stringify(top) ? "bottom-5" : "bottom-20") : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
-                                <span className="material-icons">
-                                    {
-                                        JSON.stringify(top_db) == JSON.stringify(top) ?
-                                            "check" :
-                                            "save"
-                                    }
-                                </span>
-                            </button>
-                            <button className={`z-10 absolute bottom-5 -left-18 bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] text-center flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`} onClick={() => {
-                                setShowList(!showList)
-                            }}>
-                                <span className="material-icons">
-                                    {
-                                        showList
-                                            ?
-                                            "chevron_right"
-                                            :
-                                            "leaderboard"
-                                    }
-                                </span>
-                            </button>
-                            <div className={`p-5 h-full w-full overflow-y-scroll overflow-x-clip no-scrollbar flex flex-col gap-5 items-center`}>
-                            {
-                                top.map((album: any, index: any) => (
-                                    <div className="flex flex-col gap-2" key={index}>
-                                        <div className="relative size-[100px] flex items-end">
-                                            <span style={{ textShadow: '#000 1px 0 10px' }} className="leading-none z-10 absolute funnel-sans text-[65px] text-white">{index + 1}</span>
-                                            <img className="z-0 absolute size-[100px]" src={album.images[2]}></img>
-                                        </div>
-                                        <div className="grid grid-cols-3">
-                                            {(index != 0) &&
-                                                <button className="col-start-1 material-icons" onClick={() => {
-                                                    const currentTop = [...top]
-                                                    const anterior = currentTop[index - 1]
-                                                    currentTop[index - 1] = currentTop[index]
-                                                    currentTop[index] = anterior
-                                                    setTop(currentTop)
-                                                    //checkSave()
-                                                }}>keyboard_arrow_up</button>
-                                            }
-                                            <button className="col-start-2 material-icons" onClick={() => {
-                                                const currentTop = [...top]
-                                                currentTop.splice(index, 1)
-                                                setTop(currentTop)
-                                                //checkSave()
-                                            }}>delete</button>
-
-                                            {(index != top.length - 1) &&
-                                                <button className="col-start-3 material-icons" onClick={() => {
-                                                    const currentTop = [...top]
-                                                    const posterior = currentTop[index + 1]
-                                                    currentTop[index + 1] = currentTop[index]
-                                                    currentTop[index] = posterior
-                                                    setTop(currentTop)
-                                                    //checkSave()
-                                                }}>keyboard_arrow_down</button>
-                                            }
-                                        </div>
-
-                                    </div>
-                                ))
-                            }
+        <>
+            {
+                (user) ?
+                    (
+                        <div className="flex flex-col items-center justify-center gap-5 mt-5" >
+                            <input placeholder="Álbum, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
+                            <div className="justify-center gap-2 grid grid-cols-2 md:grid-cols-3 place-content-center">
+                                {albums &&
+                                    albums.map((album: any) => (
+                                        <SearchContext.Provider value={{ top, setTop }} key={album.id} >
+                                            <ResultAlbum album={album} />
+                                        </SearchContext.Provider>
+                                    ))
+                                }
                             </div>
-                        </div>
-                    </div>
+
+
+                            <div className={`h-full w-[150px] bg-[var(--tg-theme-secondary-bg-color)] drop-shadow-xl ${showList ? "right-0" : "-right-[150px]"} duration-[800ms] top-0 fixed flex flex-col items-center`}>
+                                <button onClick={handleSave} className={`z-0 absolute -left-18 bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] text-center ${showList ? (JSON.stringify(top_db) == JSON.stringify(top) ? "bottom-5" : "bottom-20") : "bottom-5 "} duration-[400ms] flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`}>
+                                    <span className="material-icons">
+                                        {
+                                            JSON.stringify(top_db) == JSON.stringify(top) ?
+                                                "check" :
+                                                "save"
+                                        }
+                                    </span>
+                                </button>
+                                <button className={`z-10 absolute bottom-5 -left-18 bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] text-center flex items-center justify-center rounded-full drop-shadow-sm size-[50px]`} onClick={() => {
+                                    setShowList(!showList)
+                                }}>
+                                    <span className="material-icons">
+                                        {
+                                            showList
+                                                ?
+                                                "chevron_right"
+                                                :
+                                                "leaderboard"
+                                        }
+                                    </span>
+                                </button>
+                                <div className={`p-5 h-full w-full overflow-y-scroll overflow-x-clip no-scrollbar flex flex-col gap-5 items-center`}>
+                                    {
+                                        top.map((album: any, index: any) => (
+                                            <div className="flex flex-col gap-2" key={index}>
+                                                <div className="relative size-[100px] flex items-end">
+                                                    <span style={{ textShadow: '#000 1px 0 10px' }} className="leading-none z-10 absolute funnel-sans text-[65px] text-white">{index + 1}</span>
+                                                    <img className="z-0 absolute size-[100px]" src={album.images[2]}></img>
+                                                </div>
+                                                <div className="grid grid-cols-3">
+                                                    {(index != 0) &&
+                                                        <button className="col-start-1 material-icons" onClick={() => {
+                                                            const currentTop = [...top]
+                                                            const anterior = currentTop[index - 1]
+                                                            currentTop[index - 1] = currentTop[index]
+                                                            currentTop[index] = anterior
+                                                            setTop(currentTop)
+                                                            //checkSave()
+                                                        }}>keyboard_arrow_up</button>
+                                                    }
+                                                    <button className="col-start-2 material-icons" onClick={() => {
+                                                        const currentTop = [...top]
+                                                        currentTop.splice(index, 1)
+                                                        setTop(currentTop)
+                                                        //checkSave()
+                                                    }}>delete</button>
+
+                                                    {(index != top.length - 1) &&
+                                                        <button className="col-start-3 material-icons" onClick={() => {
+                                                            const currentTop = [...top]
+                                                            const posterior = currentTop[index + 1]
+                                                            currentTop[index + 1] = currentTop[index]
+                                                            currentTop[index] = posterior
+                                                            setTop(currentTop)
+                                                            //checkSave()
+                                                        }}>keyboard_arrow_down</button>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        </div>) : (<div></div>)
+            }
+        </>
     )
 }
 
@@ -173,60 +179,60 @@ function ResultAlbum(props: any) {
     if (isLoading)
         return (
             <div id={props["album"].id}
-                    className="group bg-transparent size-[150px] md:size-[200px] perspective-normal"
-                    onClick={() => { setRotate(!rotate) }}>
-                    <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180" : ""}`}>
-                        <div className="absolute w-full h-full backface-hidden">
-                            Carregando...
-                        </div>
-                        <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
-                            <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["album"].title}</p>
-                            <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["album"]["artist-credit"][0].name}</p>
-                            {(top.length < 10) &&
-                                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
-                                    if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
-                                        setTop([...top, props["album"]])
-                                    }
-                                }}>
-                                    {JSON.stringify(top).includes(JSON.stringify(props["album"])) ?
-                                        "check" :
-                                        "add"
-                                    }</button>
-                            }
-                        </div>
+                className="group bg-transparent size-[150px] md:size-[200px] perspective-normal"
+                onClick={() => { setRotate(!rotate) }}>
+                <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180" : ""}`}>
+                    <div className="absolute w-full h-full backface-hidden">
+                        Carregando...
+                    </div>
+                    <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
+                        <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["album"].title}</p>
+                        <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["album"]["artist-credit"][0].name}</p>
+                        {(top.length < 10) &&
+                            <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
+                                if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
+                                    setTop([...top, props["album"]])
+                                }
+                            }}>
+                                {JSON.stringify(top).includes(JSON.stringify(props["album"])) ?
+                                    "check" :
+                                    "add"
+                                }</button>
+                        }
                     </div>
                 </div>
+            </div>
         )
     else
         return (
             <>
                 {data &&
-                <div id={props["album"].id}
-                    className="group bg-transparent size-[150px] md:size-[200px] perspective-normal"
-                    onClick={() => { setRotate(!rotate) }}>
-                    <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180" : ""}`}>
-                        <div className="absolute w-full h-full backface-hidden">
-                            <img width="200px" src={data.images[0].image}></img>
-                        </div>
-                        <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
-                            <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["album"].title}</p>
-                            <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["album"]["artist-credit"][0].name}</p>
-                            {(top.length < 10) &&
-                                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
-                                    if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
-                                        setTop([...top, props["album"]])
-                                    }
-                                }}>
-                                    {JSON.stringify(top).includes(JSON.stringify(props["album"])) ?
-                                        "check" :
-                                        "add"
-                                    }</button>
-                            }
+                    <div id={props["album"].id}
+                        className="group bg-transparent size-[150px] md:size-[200px] perspective-normal"
+                        onClick={() => { setRotate(!rotate) }}>
+                        <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180" : ""}`}>
+                            <div className="absolute w-full h-full backface-hidden">
+                                <img width="200px" src={data.images[0].image}></img>
+                            </div>
+                            <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
+                                <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["album"].title}</p>
+                                <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["album"]["artist-credit"][0].name}</p>
+                                {(top.length < 10) &&
+                                    <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
+                                        if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
+                                            setTop([...top, props["album"]])
+                                        }
+                                    }}>
+                                        {JSON.stringify(top).includes(JSON.stringify(props["album"])) ?
+                                            "check" :
+                                            "add"
+                                        }</button>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
                 }
             </>
-            
+
         )
 }
