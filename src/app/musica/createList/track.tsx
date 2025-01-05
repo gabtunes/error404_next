@@ -181,9 +181,9 @@ function ResultTrack(props: any) {
 
     const artistas = props["track"]["artist-credit"].map((artista: any) => {
         if (artista.joinphrase) {
-            [artista.name, artista.joinphrase].join("");
+            return [artista.name, artista.joinphrase].join("");
         } else {
-            [artista.name].join("");
+            return [artista.name].join("");
         }
     })
 
@@ -199,7 +199,7 @@ function ResultTrack(props: any) {
         <div id={props["track"].id}
             className={`bg-[var(--tg-theme-secondary-bg-color)] p-3 w-full h-[100px] grid grid-cols-5 items-center justify-start`}>
             <div className="flex flex-col items-start col-span-4">
-                <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["track"].titulo}</p>
+                <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["track"].title}</p>
                 <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{artista}</p>
             </div>
             {(top.length < 20) &&
