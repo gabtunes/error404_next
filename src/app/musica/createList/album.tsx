@@ -29,7 +29,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
 
     const membro: number | undefined = user?.id
     const [ano, setAno] = useState(new Date().getFullYear())
-    const filtro = props["albums_db"].filter((registro: any) => registro["membro"]["id_telegram"] == membro /*&& registro["ano"] == ano*/)
+    const filtro = props["albums_db"].filter((registro: any) => registro["membro"]["id_telegram"] == membro && registro["ano"] == ano)
 
     const [top_db, setTopDB] = useState<object[]>([])
     const [top, setTop] = useState<object[]>([])
@@ -68,11 +68,11 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
         const options = { timeZone: 'America/Sao_Paulo' };
         const agoraBrasil = agora.toLocaleString('pt-BR', options);
 
-        if (top_db != top && membro && (agoraBrasil < "30/12/2024, 23:30:00")) {
+        if (top_db != top && membro && (agoraBrasil < "30/12/" + agora.getFullYear() + ", 23:30:00")) {
             if (filtro.length == 0) {
-                await addMusicafromMembro(membro, 2024, top, [])
+                await addMusicafromMembro(membro, agora.getFullYear(), top, [])
             } else {
-                await updateMusicafromMembro(membro, 2024, { albums: top })
+                await updateMusicafromMembro(membro, agora.getFullYear(), { albums: top })
             }
             setTopDB(top)
         }
@@ -125,7 +125,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                                             <div className="flex flex-col gap-2" key={index}>
                                                 <div className="relative size-[100px] flex items-end">
                                                     <span style={{ textShadow: '#000 1px 0 10px' }} className="leading-none z-10 absolute funnel-sans text-[65px] text-white">{index + 1}</span>
-                                                    <img className="z-0 absolute size-[100px]" src={album.images[2]}></img>
+                                                    <img className="z-0 absolute size-[100px]" src={album.imagem}></img>
                                                 </div>
                                                 <div className="grid grid-cols-3">
                                                     {(index != 0) &&
@@ -135,14 +135,12 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                                                             currentTop[index - 1] = currentTop[index]
                                                             currentTop[index] = anterior
                                                             setTop(currentTop)
-                                                            //checkSave()
                                                         }}>keyboard_arrow_up</button>
                                                     }
                                                     <button className="col-start-2 material-icons" onClick={() => {
                                                         const currentTop = [...top]
                                                         currentTop.splice(index, 1)
                                                         setTop(currentTop)
-                                                        //checkSave()
                                                     }}>delete</button>
 
                                                     {(index != top.length - 1) &&
@@ -152,7 +150,6 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                                                             currentTop[index + 1] = currentTop[index]
                                                             currentTop[index] = posterior
                                                             setTop(currentTop)
-                                                            //checkSave()
                                                         }}>keyboard_arrow_down</button>
                                                     }
                                                 </div>
@@ -218,7 +215,13 @@ function ResultAlbum(props: any) {
                                 {(top.length < 10) &&
                                     <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
                                         if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
-                                            setTop([...top, props["album"]])
+                                            const album = {
+                                                "id": props["album"].id,
+                                                "titulo": props["album"].title,
+                                                "artista": props["album"]["artist-credit"][0].name,
+                                                "imagem": data.images[0].image
+                                            }
+                                            setTop([...top, album])
                                         }
                                     }}>
                                         {JSON.stringify(top).includes(JSON.stringify(props["album"])) ?
