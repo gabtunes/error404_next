@@ -3,6 +3,7 @@
 import { addMusicafromMembro, updateMusicafromMembro } from "@/infra/musica";
 import { IMusica } from "@/models/Musica";
 import { createContext, useContext, useEffect, useState } from "react"
+import useSWR from "swr";
 import { useTelegram } from "@/lib/telegramProvider";
 
 interface SearchContextType {
@@ -20,10 +21,16 @@ const useSearchContext = () => {
     return context;
 };
 
+const fetcher = (url: any) => fetch(url).then((res) => res.json());
+const fetcher2 = (url: any) => fetch(url).then((res) => res.json());
+
 export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
     const { user } = useTelegram();
 
     const membro: number | undefined = user?.id
+    const [ano, setAno] = useState(new Date().getFullYear())
+    console.log(ano)
+    //const membro = 286273535
     const filtro = props["albums_db"].filter((registro: any) => registro["membro"] == membro)
 
     const [top_db, setTopDB] = useState<object[]>([])
@@ -36,25 +43,23 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                 setTop(filtro[0].albums)
             }
         }
-    }, [user])    
+    }, [user])
 
     const [albums, setAlbums] = useState([])
     const [showList, setShowList] = useState(false)
+    const [termo, setTermo] = useState("")
 
-    /* eslint-disable */
-    const LastFM = require('last-fm')
-    /* eslint-disable */
-    const lastfm = new LastFM('33d9baf9f1c9f421722426045e2075a0')
+    const { data } = useSWR("https://musicbrainz.org/ws/2/release-group/?query=" + termo + 
+    "%20AND%20firstreleasedate:" + ano +
+    "%20AND%20primarytype:Album%20OR%20EP" +
+    "&fmt=json", fetcher)
 
-    const handleChange = (e: any) => {
+    const handleChange = async (e: any) => {
         if (e.target.value.length > 0) {
-            lastfm.albumSearch({ q: e.target.value }, (err: any, data: any) => {
-                if (err) {
-                    console.error(err)
-                } else {
-                    setAlbums(data["result"])
-                }
-            })
+           setTermo(e.target.value)
+           setAno(new Date().getFullYear())
+           if (data)
+                setAlbums(data["release-groups"])
         } else {
             setAlbums([])
         }
@@ -76,16 +81,12 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
     }
 
     return (
-        <>
-            {
-                (user) ?
-                    (<div className="flex flex-col items-center justify-center gap-5 mt-5" >
+        <div className="flex flex-col items-center justify-center gap-5 mt-5" >
                         <input placeholder="Álbum, artista..." className="border-black border-2 p-2 w-4/5 md:w-[250px] lg:w=[300px] h-[40px]" onChange={handleChange}></input>
                         <div className="justify-center gap-2 grid grid-cols-2 md:grid-cols-3 place-content-center">
                             {albums &&
                                 albums.map((album: any) => (
-                                    (album.images.length != 0) &&
-                                    <SearchContext.Provider value={{ top, setTop }} key={album.artistName + "_" + album.name} >
+                                    <SearchContext.Provider value={{ top, setTop }} key={album.id} >
                                         <ResultAlbum album={album} />
                                     </SearchContext.Provider>
                                 ))
@@ -159,10 +160,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
                             }
                             </div>
                         </div>
-                    </div>) :
-                    (<div></div>)
-            }
-        </>
+                    </div>
     )
 }
 
@@ -170,30 +168,65 @@ function ResultAlbum(props: any) {
     const { top, setTop } = useSearchContext();
     const [rotate, setRotate] = useState(false)
 
-    return (
-        <div id={props["album"].artistName + "_" + props["album"].name}
-            className="group bg-transparent size-[150px] md:size-[200px] perspective-normal"
-            onClick={() => { setRotate(!rotate) }}>
-            <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180" : ""}`}>
-                <div className="absolute w-full h-full backface-hidden">
-                    <img width="200px" src={props["album"].images[2]}></img>
-                </div>
-                <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
-                    <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["album"].name}</p>
-                    <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["album"].artistName}</p>
-                    {(top.length < 10) &&
-                        <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
-                            if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
-                                setTop([...top, props["album"]])
+    const { data, error, isLoading } = useSWR("https://coverartarchive.org/release-group/" + props["album"].id, fetcher2)
+
+    if (isLoading)
+        return (
+            <div id={props["album"].id}
+                    className="group bg-transparent size-[150px] md:size-[200px] perspective-normal"
+                    onClick={() => { setRotate(!rotate) }}>
+                    <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180" : ""}`}>
+                        <div className="absolute w-full h-full backface-hidden">
+                            Carregando...
+                        </div>
+                        <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
+                            <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["album"].title}</p>
+                            <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["album"]["artist-credit"][0].name}</p>
+                            {(top.length < 10) &&
+                                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
+                                    if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
+                                        setTop([...top, props["album"]])
+                                    }
+                                }}>
+                                    {JSON.stringify(top).includes(JSON.stringify(props["album"])) ?
+                                        "check" :
+                                        "add"
+                                    }</button>
                             }
-                        }}>
-                            {JSON.stringify(top).includes(JSON.stringify(props["album"])) ?
-                                "check" :
-                                "add"
-                            }</button>
-                    }
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    );
+        )
+    else
+        return (
+            <>
+                {data &&
+                <div id={props["album"].id}
+                    className="group bg-transparent size-[150px] md:size-[200px] perspective-normal"
+                    onClick={() => { setRotate(!rotate) }}>
+                    <div className={`relative w-full h-full text-center transform-3d duration-[800ms] ${rotate ? "rotate-y-180" : ""}`}>
+                        <div className="absolute w-full h-full backface-hidden">
+                            <img width="200px" src={data.images[0].image}></img>
+                        </div>
+                        <div className={`bg-[var(--tg-theme-secondary-bg-color)] p-2 absolute w-full h-full backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
+                            <p className={`text-sm text-[var(--tg-theme-text-color)]`}>{props["album"].title}</p>
+                            <p className={`text-sm text-[var(--tg-theme-subtitle-text-color)]`}>{props["album"]["artist-credit"][0].name}</p>
+                            {(top.length < 10) &&
+                                <button className="material-icons size-[30px] rounded-full text-white bg-green-400 mt-3" onClick={() => {
+                                    if (!JSON.stringify(top).includes(JSON.stringify(props["album"]))) {
+                                        setTop([...top, props["album"]])
+                                    }
+                                }}>
+                                    {JSON.stringify(top).includes(JSON.stringify(props["album"])) ?
+                                        "check" :
+                                        "add"
+                                    }</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
+            </>
+            
+        )
 }
