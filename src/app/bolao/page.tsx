@@ -5,7 +5,7 @@ export default function Page() {
         <div className="flex flex-col items-center">
             <div className="protest-guerrilla-regular text-[50px]">BOLÃO</div>
             <div className="w-full md:w-[600px] grid grid-cols-5 gap-[5px] p-[5px]">
-                <Link href={"https://docs.google.com/forms/d/e/1FAIpQLSdawvzdJyxux98rYWvrng09P9YM6GdImmXIgbNZjLwKLx_H1g/viewform?usp=header"}>
+                <Link href={"https://docs.google.com/spreadsheets/d/1O7-gVsIXVO2cAUUCJ5IsuaoT0VRf77kexJ8MyTnB2T0/edit?usp=sharing"}>
                 <div className="bg-white flex items-center justify-center p-[5px]">
                     <div className="size-[50px] md:size-[75px] justify-self-center object-cover flex flex-col items-center justify-center">
                         <img className="h-[50px] md:h-[75px]" src="/img/premios/golden.png"></img>
