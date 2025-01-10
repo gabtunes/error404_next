@@ -49,7 +49,7 @@ export default function TopAlbums(props: { albums_db: Array<IMusica> }) {
 
     const { data } = useSWR("https://musicbrainz.org/ws/2/release-group/?query=" + termo +
         "%20AND%20firstreleasedate:" + ano +
-        "%20AND%20primarytype:Album%20OR%20EP" +
+        "%20AND%20primarytype:EP%20OR%20Album" +
         "&fmt=json", fetcher)
 
     const handleChange = async (e: any) => {
