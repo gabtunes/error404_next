@@ -3,7 +3,7 @@
 import { useTelegram } from '@/lib/telegramProvider';
 import React from 'react';
 import useSWR from 'swr';
-import Image from 'next/image';
+//import Image from 'next/image';
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 const fetcher2 = (url: any) => fetch(url).then((res) => res.json());
@@ -21,10 +21,10 @@ const Log = (props: any) => {
         <div className='flex flex-row gap-3'>
             <div className='relative w-16 h-24 bg-blue-400'>
                 {log.filme[0]?.poster &&
-                    <Image src={"https://image.tmdb.org/t/p/w500" + log.filme[0]?.poster} alt="" width={64} height={96}/>
+                    <img src={"https://image.tmdb.org/t/p/w500" + log.filme[0]?.poster} alt="" width={64} height={96}/>
                 }                
                 {(fileData?.ok && !user) &&
-                    <Image className="absolute -bottom-3 -right-3 rounded-full" alt="Perfil" width={35} height={35} src={"https://api.telegram.org/file/bot6467847581:AAH6c0YZgmpMXC91CP4VHpG_djDYzc-JnJc/" + fileData?.result?.file_path} />
+                    <img className="absolute -bottom-3 -right-3 rounded-full" alt="Perfil" width={35} height={35} src={"https://api.telegram.org/file/bot6467847581:AAH6c0YZgmpMXC91CP4VHpG_djDYzc-JnJc/" + fileData?.result?.file_path} />
                 }
             </div>
             <div className='flex flex-col gap-2 justify-start'>
