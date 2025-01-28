@@ -33,7 +33,7 @@ const logSchema:Schema = new mongoose.Schema({
     type: Boolean,
     required: true,
   }
-},{  collection: 'log' });
+},{  collection: 'log', versionKey: false });
 
 const Log = mongoose.models?.Log || mongoose.model<ILog>("Log", logSchema);
 

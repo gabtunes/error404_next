@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -82,4 +84,45 @@ body {
   animation: l1 1s infinite;
 }
 @keyframes l1 {to{transform: rotate(.5turn)}}
+
+
+/* Ratings widget */
+.rate {
+    display: inline-block;
+    border: 0;
+}
+/* Hide radio */
+.rate > input {
+    display: none;
+}
+/* Order correctly by floating highest to the right */
+.rate > label {
+    float: right;
+}
+/* The star of the show */
+.rate > label:before {
+    display: inline-block;
+    /*background-color: aqua;*/
+    font-size: 30px;
+    margin: 0;
+    cursor: pointer;
+    font-family: "Material Icons";
+    content: "star"; /* full star */
+}
+/* Half star trick */
+.rate .half:before {
+    content: "star_half"; /* half star no outline */
+    position: absolute;
+    width: 15px;
+    overflow:hidden;
+    /*background-color: firebrick;*/
+}
+/* Click + hover color */
+input:checked ~ label, /* color current and previous stars on checked */
+label:hover, label:hover ~ label { color: #73B100;  } /* color previous stars on hover */
+
+/* Hover highlights */
+input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
+input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #A6E72D;  } 
 

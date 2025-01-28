@@ -23,7 +23,7 @@ export default async function Home() {
             <Botao titulo="Wrapped"/>
           </Link>
         </div>
-        <Logs />
+          <Logs />
       </div>     
     </TelegramProvider>
   );

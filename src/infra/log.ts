@@ -296,13 +296,13 @@ export async function getCharts(ano: number) {
                     "$or": [
                         {
                             "$and": [
-                                { "membros_n": { "$gte": 5 } },
+                                { "notas_nao_nula": { "$gte": 5 } },
                                 { "duracao": { "$gte": 60 } }
                             ]
                         },
                         {
                             "$and": [
-                                { "membros_n": { "$gte": 10 } },
+                                { "notas_nao_nula": { "$gte": 10 } },
                                 { "duracao": { "$lt": 60 } }
                             ]
                         }
@@ -346,116 +346,19 @@ export async function refreshLogs(){
     revalidatePath("/")
 }
 
-export async function getLogs(){
+export async function POST(membro: string, nota: number, tmdb: number){
     await dbConnect();
     
     try {
-        const logs = await Log.aggregate(
-            [
-              {
-                "$group": {
-                  "_id": { "membro": '$membro', 'tmdb': '$tmdb' },
-                  'logs': {
-                    '$addToSet': {
-                      'data': '$data',
-                      'nota': '$nota',
-                      'watched': '$watched',
-                      'updated_at': '$updated_at'
-                    }
-                  },
-                  "ultimo_log": { "$max": '$data' },
-                  "ultimo_update": { "$max": '$updated_at' }
-                }
-              },
-              {
-                '$lookup': {
-                  'from': 'filme',
-                  'localField': '_id.tmdb',
-                  'foreignField': 'tmdb',
-                  'as': 'filme'
-                }
-              },{
-                '$lookup': {
-                  'from': 'membro',
-                  'localField': '_id.membro',
-                  'foreignField': 'user',
-                  'as': 'membro'
-                }
-              },
-              {
-                '$addFields': {
-                  'membro': { '$arrayElemAt': ['$membro', 0] }
-                }
-              },{
-                "$sort": { 'ultimo_log': -1, 'ultimo_update': -1 }
-              }
-            ],
-            { maxTimeMS: 60000, allowDiskUse: true }
-          );
-
-        return new NextResponse(JSON.stringify(logs));
-    } catch (err: any){
-        return new NextResponse("error:" + err.message);
-    }
-    
-}
-
-export async function getLogsbyMember(user: number){
-    await dbConnect();
-    
-    try {
-        const logs = await Log.aggregate(
-            [
-              {
-                "$group": {
-                  "_id": { "membro": '$membro', 'tmdb': '$tmdb' },
-                  'logs': {
-                    '$addToSet': {
-                      'data': '$data',
-                      'nota': '$nota',
-                      'watched': '$watched',
-                      'updated_at': '$updated_at'
-                    }
-                  },
-                  "ultimo_log": { "$max": '$data' },
-                  "ultimo_update": { "$max": '$updated_at' }
-                }
-              },
-              {
-                '$lookup': {
-                  'from': 'filme',
-                  'localField': '_id.tmdb',
-                  'foreignField': 'tmdb',
-                  'as': 'filme'
-                }
-              },{
-                '$lookup': {
-                  'from': 'membro',
-                  'localField': '_id.membro',
-                  'foreignField': 'user',
-                  'as': 'membro'
-                }
-              },
-              {
-                '$addFields': {
-                  'membro': { '$arrayElemAt': ['$membro', 0] }
-                }
-              },{
-                "$sort": { 'ultimo_log': -1, 'ultimo_update': -1 }
-              }, {
-                '$match': {
-                  '$expr': {
-                    '$eq': ['$membro.id_telegram', user]
-                  }
-                }
-              }
-            ],
-            { maxTimeMS: 60000, allowDiskUse: true }
-          );
-
-        return JSON.stringify(NextResponse.json(logs));
+        await Log.create({
+            data: new Date(),
+            membro: membro,
+            nota: nota,
+            tmdb: tmdb,
+            updated_at: new Date(),
+            watched: false
+        });
     } catch (err: any){
         return NextResponse.json({ error: err.message });
     }
-    
-}
+} 
