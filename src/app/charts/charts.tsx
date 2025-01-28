@@ -79,17 +79,17 @@ const Charts = (props: {atual: boolean, ultimo: any, penultimo: any, last_chart:
                     {props["bubbling"].map((filme: any, index: any) => (
                         <div className="group flex flex-row items-stretch justify-stretch w-full md:w-[500px]" key={filme.tmdb}>
                             {(index > 0) ?
-                                ((props["bubbling"][index - 1].membros_n == filme.membros_n) ?
+                                ((props["bubbling"][index - 1].notas_nao_nula == filme.notas_nao_nula) ?
                                     <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center "></div>
                                     :
                                     <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center text-[#00ac1c]">
-                                        <div className='funnel-sans text-[25px] md:text-[35px]'>{filme.membros_n}</div>
+                                        <div className='funnel-sans text-[25px] md:text-[35px]'>{filme.notas_nao_nula}</div>
                                         <div className="material-icons">remove_red_eye</div>
                                     </div>
                                 )
                                 :
                                 <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center text-[#00ac1c]">
-                                    <div className='funnel-sans text-[25px] md:text-[35px]'>{filme.membros_n}</div>
+                                    <div className='funnel-sans text-[25px] md:text-[35px]'>{filme.notas_nao_nula}</div>
                                     <div className="material-icons">remove_red_eye</div>
                                 </div>
                             }

@@ -4,6 +4,7 @@ export interface IBubbling {
     tmdb: number,
     titulo: string,
     duracao: number,
+    notas_nao_nula: number,
     membros_n: number
 }
 
@@ -17,6 +18,10 @@ const bubblingSchema:Schema = new mongoose.Schema({
     required: true,
   },
   duracao: {
+    type: Number,
+    required: true,
+  },
+  notas_nao_nula: {
     type: Number,
     required: true,
   },
