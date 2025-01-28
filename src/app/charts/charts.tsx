@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react";
-import Image from "next/image";
 
 const Charts = (props: {atual: boolean, ultimo: any, penultimo: any, last_chart:any, bubbling?: any}) => {
     const [page, setPage] = useState("charts")
@@ -33,13 +32,13 @@ const Charts = (props: {atual: boolean, ultimo: any, penultimo: any, last_chart:
                                     (props["penultimo"].find((o: any) => o.tmdb == filme.tmdb) ?
                                         (
                                             (props["penultimo"].find((o: any) => o.tmdb == filme.tmdb)["pos"] - (index + 1) > 0) ?
-                                                <Image alt="Desceu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/up.png"></Image> :
+                                                <img alt="Desceu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/up.png" /> :
                                                 (props["penultimo"].find((o: any) => o.tmdb == filme.tmdb)["pos"] - (index + 1) < 0 ?
-                                                    <Image alt="Subiu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/down.png"></Image> :
-                                                    <Image alt="Nada mudou" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/same.png"></Image>
+                                                    <img alt="Subiu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/down.png" /> :
+                                                    <img alt="Nada mudou" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/same.png" />
                                                 )
                                         )
-                                        : <Image alt="Novo" className="size-[23px] md:size-[25px]" width={50} height={50} src="/img/new.png"></Image>)
+                                        : <img alt="Novo" className="size-[23px] md:size-[25px]" width={50} height={50} src="/img/new.png" />)
                                     : <div></div>
                                 }
                             </div>
@@ -52,10 +51,10 @@ const Charts = (props: {atual: boolean, ultimo: any, penultimo: any, last_chart:
                                     <div className="px-[10px] text-[16px]">{(filme.media).toFixed(2)}</div>
                                     <div className="w-[30px] flex flex-row">
                                         {filme.selo == 'cf' ?
-                                            <Image className="mr-[5px]" alt="Certified Fresh" width='20' height="20" src="/img/certified.svg"></Image> :
+                                            <img className="mr-[5px]" alt="Certified Fresh" width='20' height="20" src="/img/certified.svg" /> :
                                             (filme.selo == 'f' ?
-                                                <Image className="mr-[5px]" alt="Fresh" width='20' height="20" src="/img/fresh.svg"></Image> :
-                                                <Image className="mr-[5px]" alt="Rotten" width="20" height="20" src="/img/rotten.svg"></Image>
+                                                <img className="mr-[5px]" alt="Fresh" width='20' height="20" src="/img/fresh.svg" /> :
+                                                <img className="mr-[5px]" alt="Rotten" width="20" height="20" src="/img/rotten.svg" />
                                             )
                                         }
                                         <div className="text-[16px]">{(100 * filme.percent).toFixed(0)}%</div>
@@ -66,8 +65,8 @@ const Charts = (props: {atual: boolean, ultimo: any, penultimo: any, last_chart:
                                 {(filme.oscar === null) ?
                                     <div></div> :
                                     ((filme.oscar) ?
-                                        <Image src="/img/oscar_win.svg" alt="" width={30} height={30} /> :
-                                        <Image src="/img/oscar_nom.svg" alt="" width={30} height={30} />
+                                        <img src="/img/oscar_win.svg" alt="" width={30} height={30} /> :
+                                        <img src="/img/oscar_nom.svg" alt="" width={30} height={30} />
                                     )
                                 }
                             </div>
