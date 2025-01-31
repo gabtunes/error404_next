@@ -39,6 +39,15 @@ export default function Page() {
                     </div>
                 </div>
             </div>
+            <div className="w-full md:w-[600px] grid grid-cols-1 gap-[5px] p-[5px]">
+            <Link href={"https://docs.google.com/forms/d/e/1FAIpQLScv2RmvOh_lEon1w7OjoHNSPS_-h0_3JEIyOvNCTD-aPwtFQA/viewform?usp=header"}>
+                <div className="bg-white flex items-center justify-center p-[5px]">
+                    <div className="size-[50px] md:size-[75px] justify-self-center object-cover flex flex-col items-center justify-center">
+                        <img className="h-[50px] md:h-[75px]" src="/img/premios/grammy.png"></img>
+                    </div>
+                </div>
+            </Link>
+            </div>
         </div>
 
     )
