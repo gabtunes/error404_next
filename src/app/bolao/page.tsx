@@ -33,11 +33,13 @@ export default function Page() {
                     </div>
                 </div>
                 </Link>
+                <Link href={"https://docs.google.com/forms/d/e/1FAIpQLSeffzxFbKHFQNmk3kbf05PrdFWzDVLAKzF33nRw8O6T9C0ZFg/viewform?usp=header"} >
                 <div className="bg-white flex items-center justify-center p-[5px]">
                     <div className="size-[50px] md:size-[75px] justify-self-center object-contain flex items-center justify-center">
                         <img className="h-[50px] md:h-[75px]" src="/img/premios/oscar.png"></img>
                     </div>
                 </div>
+                </Link>
             </div>
             <div className="w-full md:w-[600px] grid grid-cols-1 gap-[5px] p-[5px]">
             <Link href={"https://docs.google.com/forms/d/e/1FAIpQLScv2RmvOh_lEon1w7OjoHNSPS_-h0_3JEIyOvNCTD-aPwtFQA/viewform?usp=header"}>
