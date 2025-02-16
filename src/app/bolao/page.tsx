@@ -19,7 +19,7 @@ export default function Page() {
                     </div>
                 </div>
                 </Link>
-                <Link href={"https://docs.google.com/forms/d/e/1FAIpQLSfA8YwH_YsPuI2Xr1D7U2byM20pDJeW62yH_zMSsbqgQSqh0Q/viewform?usp=header"}>
+                <Link href={"https://docs.google.com/spreadsheets/d/1O7-gVsIXVO2cAUUCJ5IsuaoT0VRf77kexJ8MyTnB2T0/edit?usp=sharing"}>
                 <div className="bg-white flex items-center justify-center p-[5px]">
                     <div className="size-[50px] md:size-[75px] justify-self-center object-contain flex items-center justify-center">
                         <img className="h-[50px] md:h-[75px] w-[66px] md:w-[100px] max-w-none" src="/img/premios/bafta.png"></img>
