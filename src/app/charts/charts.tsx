@@ -17,9 +17,7 @@ const Charts = (props: {limite?: boolean, atual: boolean, last_chart?:any, bubbl
     if (error_lastcharts || error_bubbling) return <div>Falha</div>
     if (isLoading_bubbling || isLoading_lastcharts) {
       return (
-        <div className='w-full md:w-[600px] h-10 p-10 flex flex-row justify-between items-center bg-[var(--background)] text-[var(--foreground)]'>
-          <div style={{borderColor: "var(--foreground)"}} className="loader"></div>
-        </div>
+        <div className="m-10 loader"></div>
         )
     }
 
