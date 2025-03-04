@@ -1,5 +1,4 @@
-import { getAno, getChartComparison } from "@/infra/charts";
-import { getBubbling } from "@/infra/bubbling";
+import { getAno } from "@/infra/charts";
 import { getCharts } from "@/infra/log";
 import HeaderCharts from "@/app/charts/headercharts";
 

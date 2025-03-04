@@ -6,7 +6,7 @@ import useSWR from "swr";
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
 const Charts = (props: {limite?: boolean, atual: boolean, last_chart?:any, bubbling?: any}) => {
-    const [page, setPage] = props["limite"] && props["atual"] ? useState("bubbling") : useState("charts")
+    const [page, setPage] = useState(props["limite"] && props["atual"] ? "bubbling" : "charts")
 
     const url = "/api/lastchart"
     const url2 = "/api/bubbling"
