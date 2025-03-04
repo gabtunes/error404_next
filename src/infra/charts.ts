@@ -42,8 +42,7 @@ export async function getAno(){
         const charts = await Charts.find({
             updated_at: {
                 $lte: new Date()
-            },
-            limite: 0
+            }
         }).sort({ ano: -1 }).limit(1);
 
         return NextResponse.json(charts);

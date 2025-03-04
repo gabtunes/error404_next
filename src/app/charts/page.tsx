@@ -4,37 +4,32 @@ import { getCharts } from "@/infra/log";
 import HeaderCharts from "@/app/charts/headercharts";
 
 export default async function Page() {
-        const anos = [2024, 2023, 2022, 2021]
-        const ano_atual = await (await getAno()).json()
-        const ano: number = (ano_atual[0].ano)
+        const ano_atual = await (await getAno()).json()        
+        const ano: number = ano_atual[0].limite ? ano_atual[0].ano + 1 : ano_atual[0].ano 
 
-        const bubbling = (await (await getBubbling()).json());  
+        const arrayRange = (start: number, stop:number, step: number) =>
+            Array.from(
+            { length: (stop - start) / step + 1 },
+            (value, index) => start + index * step
+            );
+
+        const anos = arrayRange(ano, 2021, -1)
+        console.log(anos)
 
         const data: Array<object> = []
 
-        for (let i = 0; i < anos.length; i++) {
-            const chartscomp = await (await getChartComparison(anos[i])).json()
+        for (let i = 1; i < anos.length; i++) {
             const res = await (await getCharts(anos[i])).json()
-
-            const ultimo = chartscomp[0].limite;
-
-            let penultimo = [];
-
-            if (chartscomp.length > 1) {
-                penultimo = chartscomp[1].chart;
-            }
 
             data[i] = {
                 ano: anos[i],
-                ultimo: ultimo,
-                penultimo: penultimo,
                 charts: res
             }
         }
 
     return(
         <div className="flex flex-col items-center">
-            <HeaderCharts ano={ano} bubbling={bubbling} data={data} />
+            <HeaderCharts anos={anos} ano={ano} limite={ano_atual[0].limite} data={data} />
         </div>
     )
 }

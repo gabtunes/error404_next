@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Charts from "./charts";
 
-const HeaderCharts = (props: { ano: number, bubbling: Array<object>, data: Array<object> }) => {
-    const anos = [2024, 2023, 2022, 2021];
+const HeaderCharts = (props: { anos: number[], ano: number, limite: boolean, data: Array<object> }) => {
+    const anos = props["anos"]
     const [ano, setAno] = useState(props["ano"])
+    const limite = props["limite"]
 
     const data = props["data"]
 
@@ -22,13 +23,12 @@ const HeaderCharts = (props: { ano: number, bubbling: Array<object>, data: Array
                     ))
                 }
             </div>
+            <div className={`${ano == anos[0] ? "flex" : "hidden"}`}>
+                <Charts limite={limite} atual={true} />
+            </div>
             {data.map((chart: any) => (
                 <div key={chart["ano"]} className={`${chart["ano"] == ano ? "flex" : "hidden"}`}>
-                    <Charts atual={(chart["ano"] == props["ano"]) ? true : false}
-                            bubbling={props["bubbling"]}
-                            ultimo={chart["ultimo"]}
-                            penultimo={chart["penultimo"]}
-                            last_chart={chart["charts"]} />
+                    <Charts limite={true} atual={false} last_chart={chart["charts"]} />
                 </div>
             ))}
         </div>
