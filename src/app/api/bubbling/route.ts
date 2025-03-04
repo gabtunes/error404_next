@@ -2,7 +2,7 @@
 
 import Bubbling from "@/models/Bubbling";
 import dbConnect from "@/lib/connectDB";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export const GET = async() =>{
     await dbConnect();
