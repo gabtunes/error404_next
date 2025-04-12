@@ -4,10 +4,6 @@ import Logs from "@/components/logs";
 import Header from "@/components/header";
 
 export default async function Home() {
-
-  const checkIsDarkSchemePreferred = () => window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ?? false;
-  
-
   return (
     <TelegramProvider>
       <div className="p-2 flex flex-col items-center w-full md:w-[600px]">

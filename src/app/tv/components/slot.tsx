@@ -4,6 +4,7 @@ import { useState } from "react"
 import Evento from "./evento"
 
 const Slot = (props: any) => {
+    const id = props["id"]
     const [evento, setEvento] = useState(false)
 
     const handleClick = () => {
@@ -11,7 +12,7 @@ const Slot = (props: any) => {
     }
 
     const handleClose = () => {
-        console.log("Foi")
+        console.log(id)
         setEvento(false)
     }
 
