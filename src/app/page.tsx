@@ -6,6 +6,7 @@ import Header from "@/components/header";
 export default async function Home() {
   return (
     <TelegramProvider>
+      <div className="w-full flex justify-center">
       <div className="p-2 flex flex-col items-center w-full md:w-[600px]">
         <Header />  
         <div className="flex flex-row flex-wrap justify-between gap-6 p-4">
@@ -27,7 +28,9 @@ export default async function Home() {
           </Link>
         </div>
           <Logs />
-      </div>     
+      </div> 
+      </div>
+          
     </TelegramProvider>
   );
 }

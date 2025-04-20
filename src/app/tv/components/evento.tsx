@@ -2,8 +2,10 @@
 
 const Evento = (props: any) => {
 
+    const duration = props["duration"];
+
     return (
-        <div className="rounded-md shadow-md w-11/12 h-[90px] mt-[0px] p-2 flex justify-right" >
+        <div style={{height: duration}} className={`rounded-md bg-green-100 shadow-md w-11/12 p-2 flex justify-right`} >
             {props.children}
         </div>
     )
