@@ -97,9 +97,9 @@ const Charts = (props: {limite?: boolean, atual: boolean, last_chart?:any, bubbl
                             <div className="w-[50px] flex flex-col shrink-0 grow-0 justify-center items-center ">
                                 <div className='funnel-sans text-[25px] md:text-[35px]'>{index + 1}</div>
                                 {filme.status == "DOWN" ? 
-                                        <img alt="Desceu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/up.png" /> :
+                                        <img alt="Desceu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/down.png" /> :
                                         filme.status == "UP" ?
-                                            <img alt="Subiu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/down.png" /> :
+                                            <img alt="Subiu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/up.png" /> :
                                             filme.status == "SAME" ?
                                                 <img alt="Nada mudou" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/same.png" /> :
                                                 <img alt="Novo" className="size-[23px] md:size-[25px]" width={50} height={50} src="/img/new.png" />
