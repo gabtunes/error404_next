@@ -49,8 +49,8 @@ const Charts = (props: {limite?: boolean, atual: boolean, last_chart?:any, bubbl
                                 <div className='funnel-sans text-[25px] md:text-[35px]'>{index + 1}</div>
                                 {props["atual"] ?
                                     <div>
-                                    <img alt="Desceu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/down.png" />
-                                    <img alt="Subiu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/up.png" />
+                                    <img alt="Desceu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/down.png"  />
+                                    <img alt="Subiu" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/up.png"  />
                                     <img alt="Nada mudou" className="size-[20px] md:size-[23px]" width={50} height={50} src="/img/same.png" />
                                     <img alt="Novo" className="size-[23px] md:size-[25px]" width={50} height={50} src="/img/new.png" />
                                     </div>
