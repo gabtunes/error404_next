@@ -74,7 +74,7 @@ export default function TopTracks(props: { tracks_db: Array<IMusica> }) {
         const options = { timeZone: 'America/Sao_Paulo' };
         const agoraBrasil = agora.toLocaleString('pt-BR', options);
 
-        if (top_db != top && membro && (agoraBrasil < "30/12/" + agora.getFullYear() + ", 23:30:00")) {
+        if (top_db != top && membro && (agoraBrasil < "31/12/" + agora.getFullYear() + ", 18:30:00")) {
             if (filtro.length == 0) {
                 await addMusicafromMembro(membro, agora.getFullYear(), [], top)
             } else {
