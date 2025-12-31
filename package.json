@@ -17,7 +17,7 @@
     "mongoose": "^8.8.1",
     "musicbrainz": "^0.2.7",
     "musicbrainz-api": "^0.19.1",
-    "next": "^15.5.3",
+    "next": "15.5.9",
     "react": "^19.1.1",
     "react-dom": "19.1.1",
     "swr": "^2.3.6"
